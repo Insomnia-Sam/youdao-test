@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-18T09:44:46.982+00:00",
+  "finished_at_utc": "2026-10-18T09:44:53.368+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一位穿着黑色露肩短裙、戴着米奇发箍的年轻女生，坐在迪士尼乐园万圣节主题的米奇造型南瓜装置前拍照。\n目标条目：\n{\n  \"id\": \"i1\",\n  \"name_en\": \"Mickey-shaped Pumpkin Decor\",\n  \"name_zh\": \"米奇造型南瓜装饰\",\n  \"label_en\": \"giant Mickey pumpkin decoration\",\n  \"label_zh\": \"巨型米奇南瓜装饰\",\n  \"point\": [\n    500,\n    400\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/png",
+      "byte_size": 4000502
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/png\", \"byte_size\": 4000502}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一位穿着黑色露肩短裙、戴着米奇发箍的年轻女生，坐在迪士尼乐园万圣节主题的米奇造型南瓜装置前拍照。\n目标条目：\n{\n  \"id\": \"i1\",\n  \"name_en\": \"Mickey-shaped Pumpkin Decor\",\n  \"name_zh\": \"米奇造型南瓜装饰\",\n  \"label_en\": \"giant Mickey pumpkin decoration\",\n  \"label_zh\": \"巨型米奇南瓜装饰\",\n  \"point\": [\n    500,\n    400\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "02179231668757468a4d5226e4976fceebdcfa7e5c0e7221613b0"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\": \"i1\", \"meaning_zh\": \"迪士尼万圣节主题的巨型米奇造型南瓜装饰，印有“Disney Halloween Time”字样，搭配小礼帽装饰，是乐园节日打卡的标志性景观。\", \"examples\": [{\"en\": \"I just took a photo in front of the Mickey-shaped Pumpkin Decor at Disney’s Halloween Time—it’s such a fun seasonal backdrop!\", \"zh\": \"我刚在迪士尼万圣节季的巨型米奇南瓜装饰前拍了照，这节日背景也太有氛围了！\"}, {\"en\": \"The city hall put up a giant Mickey-shaped pumpkin decor outside the plaza for our neighborhood Halloween party.\", \"zh\": \"市政厅在广场外摆了个巨型米奇南瓜装饰，来办我们社区的万圣节派对。\"}], \"usage_note_zh\": \"日常用来指代节庆场合做成米奇头轮廓的南瓜造型装饰，多用于描述万圣节前后的乐园或街区布置。\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792316693,
+      "id": "02179231668757468a4d5226e4976fceebdcfa7e5c0e7221613b0",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 193,
+        "prompt_tokens": 1786,
+        "total_tokens": 1979,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\": \"i1\", \"meaning_zh\": \"迪士尼万圣节主题的巨型米奇造型南瓜装饰，印有“Disney Halloween Time”字样，搭配小礼帽装饰，是乐园节日打卡的标志性景观。\", \"examples\": [{\"en\": \"I just took a photo in front of the Mickey-shaped Pumpkin Decor at Disney’s Halloween Time—it’s such a fun seasonal backdrop!\", \"zh\": \"我刚在迪士尼万圣节季的巨型米奇南瓜装饰前拍了照，这节日背景也太有氛围了！\"}, {\"en\": \"The city hall put up a giant Mickey-shaped pumpkin decor outside the plaza for our neighborhood Halloween party.\", \"zh\": \"市政厅在广场外摆了个巨型米奇南瓜装饰，来办我们社区的万圣节派对。\"}], \"usage_note_zh\": \"日常用来指代节庆场合做成米奇头轮廓的南瓜造型装饰，多用于描述万圣节前后的乐园或街区布置。\"}",
+    "parsed_json": {
+      "id": "i1",
+      "meaning_zh": "迪士尼万圣节主题的巨型米奇造型南瓜装饰，印有“Disney Halloween Time”字样，搭配小礼帽装饰，是乐园节日打卡的标志性景观。",
+      "examples": [
+        {
+          "en": "I just took a photo in front of the Mickey-shaped Pumpkin Decor at Disney’s Halloween Time—it’s such a fun seasonal backdrop!",
+          "zh": "我刚在迪士尼万圣节季的巨型米奇南瓜装饰前拍了照，这节日背景也太有氛围了！"
+        },
+        {
+          "en": "The city hall put up a giant Mickey-shaped pumpkin decor outside the plaza for our neighborhood Halloween party.",
+          "zh": "市政厅在广场外摆了个巨型米奇南瓜装饰，来办我们社区的万圣节派对。"
+        }
+      ],
+      "usage_note_zh": "日常用来指代节庆场合做成米奇头轮廓的南瓜造型装饰，多用于描述万圣节前后的乐园或街区布置。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 6385.525,
+    "wall_clock_seconds": 6.386,
+    "usage_raw": {
+      "completion_tokens": 193,
+      "prompt_tokens": 1786,
+      "total_tokens": 1979,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1786,
+      "output_tokens": 193,
+      "total_tokens": 1979,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_case": "TC01",
+    "item_index": 1,
+    "item_id": "i1",
+    "detail_includes_image": true
+  }
+}

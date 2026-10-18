@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>拍照学英语模型测试台</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">MULTIMODAL BENCHMARK</p>
+      <h1>拍照学英语模型测试台</h1>
+      <p class="subtitle">绕过 Agent 编排层，直接审计图文模型的提示词、原始响应、Token 与墙钟时延。</p>
+    </div>
+    <div id="health" class="health">正在检查本地服务</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel config-panel">
+      <div class="section-heading">
+        <span class="step">01</span>
+        <div><h2>模型与用例配置</h2><p>密钥仅保存在当前浏览器输入框与请求进程内，不落盘。</p></div>
+      </div>
+
+      <label>平台
+        <select id="provider">
+          <option value="volcengine">火山方舟</option>
+          <option value="aliyun">阿里云百炼</option>
+          <option value="custom">自定义 OpenAI 兼容接口</option>
+        </select>
+      </label>
+      <p class="hint">每次点击“调用首轮模型”都会自动创建“模型名-本地时间戳”测试目录；该轮所有 item 结果写入同一目录。</p>
+
+      <label>Base URL
+        <input id="baseUrl" spellcheck="false" autocomplete="off">
+        <small>可填到 <code>/v1</code> 或直接填完整的 <code>/chat/completions</code>。</small>
+      </label>
+
+      <div class="form-grid two">
+        <label>模型 ID
+          <input id="model" spellcheck="false" autocomplete="off">
+        </label>
+        <label>结果文件中的模型名
+          <input id="modelLabel" spellcheck="false" autocomplete="off">
+        </label>
+      </div>
+
+      <div class="form-grid two">
+        <label>API Key
+          <input id="apiKey" type="password" placeholder="只在调用时使用，不写入结果文件" autocomplete="off">
+        </label>
+        <label>超时（秒）
+          <input id="timeout" type="number" value="180" min="1" max="1800">
+        </label>
+      </div>
+
+      <label>额外请求参数（JSON）
+        <textarea id="extraBody" class="code-area short" spellcheck="false"></textarea>
+        <small>用于控制思考模式、结构化输出等。<code>model/messages/stream</code> 会由工具统一生成。</small>
+      </label>
+
+      <label>用户资料
+        <textarea id="userProfile" class="profile-area"></textarea>
+      </label>
+      <button id="resetPrompt" class="secondary">按当前用户资料重建首轮提示词</button>
+
+      <label class="upload-zone" for="imageInput">
+        <input id="imageInput" type="file" accept="image/*">
+        <span class="upload-title">选择测试原图</span>
+        <span>图片会以 Base64 Data URL 直接发送给模型，原始内容不会写入审计 JSON。</span>
+      </label>
+      <img id="imagePreview" class="image-preview" alt="测试图片预览" hidden>
+      <div id="imageMeta" class="image-meta">尚未选择图片</div>
+    </section>
+
+    <section class="panel" id="overallSection">
+      <div class="section-heading">
+        <span class="step">02</span>
+        <div><h2>首轮总体识别</h2><p>编辑完整提示词，人工点击后仅发起一次图文调用。</p></div>
+      </div>
+      <label>首轮提示词
+        <textarea id="overallPrompt" class="code-area prompt" spellcheck="false"></textarea>
+      </label>
+      <div class="button-row">
+        <button id="runOverall" class="primary">调用首轮模型</button>
+        <span class="hint">终端与页面日志都会显示完整提示词、时延和 Token。</span>
+      </div>
+      <div id="overallMetrics" class="metrics">尚未调用</div>
+
+      <label>首轮结果 JSON（可人工修订后再生成详情提示词）
+        <textarea id="overallOutput" class="code-area output" spellcheck="false" placeholder="模型响应会自动解析到这里；也可以粘贴已有结果。"></textarea>
+      </label>
+      <div class="button-row">
+        <button id="parseOverall" class="secondary">检查并格式化 JSON</button>
+        <button id="prepareItems" class="primary muted">生成逐 Item 测试卡</button>
+      </div>
+    </section>
+
+    <section class="panel full-width" id="detailSection">
+      <div class="section-heading">
+        <span class="step">03</span>
+        <div><h2>逐 Item 详情测试</h2><p>读取当前编辑器里的 <code>scene.context_zh</code> 与每个 item，逐项生成可编辑提示词。</p></div>
+      </div>
+      <label class="switch-row">
+        <input id="includeDetailImage" type="checkbox" checked>
+        <span><strong>详情调用携带原图</strong><small>关闭后只发送文本；该配置会写入每个 item 的结果文件。</small></span>
+      </label>
+      <div id="itemsArea" class="items-area">
+        <div class="empty-state">首轮结果确认后，点击“生成逐 Item 测试卡”。</div>
+      </div>
+    </section>
+
+    <section class="panel log-panel">
+      <div class="section-heading compact-heading">
+        <span class="step">04</span>
+        <div><h2>实时审计日志</h2><p>不展示或保存 API Key 与图片 Base64。</p></div>
+      </div>
+      <div id="log" class="log" role="log" aria-live="polite"></div>
+    </section>
+
+    <section class="panel files-panel">
+      <div class="section-heading compact-heading">
+        <span class="step">05</span>
+        <div><h2>结果文件</h2><p>同名重跑时，旧结果自动进入 archive，不会静默覆盖。</p></div>
+      </div>
+      <button id="refreshFiles" class="secondary small">刷新列表</button>
+      <div id="resultFiles" class="result-files"></div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>计量口径：</strong>墙钟时延从本地 HTTP 请求发出前计至完整响应读取完成；Token 完全采用供应商返回的 usage，不做估算。
+  </footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>

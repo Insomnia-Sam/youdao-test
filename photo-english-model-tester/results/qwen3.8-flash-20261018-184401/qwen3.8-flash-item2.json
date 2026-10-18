@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-18T10:44:18.961+00:00",
+  "finished_at_utc": "2026-10-18T10:44:23.559+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "qwen3.8-flash",
+    "model_label": "qwen3.8-flash",
+    "endpoint": "https://ws-bntrjhzu6rspni2t.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一名年轻女子坐在迪士尼乐园巨大的米奇南瓜雕塑前，背景是晴朗的蓝天和主题街道。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"headband\",\n  \"name_zh\": \"发箍\",\n  \"label_en\": \"Mickey headband\",\n  \"label_zh\": \"米奇发箍\",\n  \"point\": [\n    508,\n    523\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/png",
+      "byte_size": 4000502
+    },
+    "body_without_image_or_secret": {
+      "model": "qwen3.8-flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/png\", \"byte_size\": 4000502}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一名年轻女子坐在迪士尼乐园巨大的米奇南瓜雕塑前，背景是晴朗的蓝天和主题街道。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"headband\",\n  \"name_zh\": \"发箍\",\n  \"label_en\": \"Mickey headband\",\n  \"label_zh\": \"米奇发箍\",\n  \"point\": [\n    508,\n    523\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "6b49b6b2-fcdb-91e0-9498-5f892cc6cf45"
+    },
+    "raw_json": {
+      "id": "chatcmpl-6b49b6b2-fcdb-91e0-9498-5f892cc6cf45",
+      "object": "chat.completion",
+      "created": 1792320260,
+      "model": "qwen3.8-flash",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "reasoning_content": "",
+            "content": "{\"id\":\"i2\",\"meaning_zh\":\"在迪士尼乐园游玩时，游客常佩戴带有标志性米奇耳朵造型的发箍（headband）作为拍照道具，这不仅是时尚穿搭的一部分，更是参与主题乐园节日氛围的有趣方式。\",\"examples\":[{\"en\":\"I couldn't resist picking up a sparkly Mickey headband to complete my Halloween look in the park.\",\"zh\":\"我忍不住买了一个闪闪发光的米奇发箍，来完善我在公园里的万圣节造型。\"},{\"en\":\"She wore a simple black off-shoulder dress, letting the headband be the main accessory.\",\"zh\":\"她穿了一件简单的黑色露肩连衣裙，让发箍成为主要的配饰。\"}],\"usage_note_zh\":\"“Headband” 指戴在头上的饰带或发箍。在迪士尼语境下，它通常特指 “Mickey ears headband”。\" }"
+          },
+          "finish_reason": "stop",
+          "logprobs": null
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 2454,
+        "total_tokens": 2635,
+        "completion_tokens": 181,
+        "prompt_tokens_details": {
+          "cached_tokens": 2048,
+          "image_tokens": 2122,
+          "text_tokens": 332
+        },
+        "completion_tokens_details": {}
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\":\"i2\",\"meaning_zh\":\"在迪士尼乐园游玩时，游客常佩戴带有标志性米奇耳朵造型的发箍（headband）作为拍照道具，这不仅是时尚穿搭的一部分，更是参与主题乐园节日氛围的有趣方式。\",\"examples\":[{\"en\":\"I couldn't resist picking up a sparkly Mickey headband to complete my Halloween look in the park.\",\"zh\":\"我忍不住买了一个闪闪发光的米奇发箍，来完善我在公园里的万圣节造型。\"},{\"en\":\"She wore a simple black off-shoulder dress, letting the headband be the main accessory.\",\"zh\":\"她穿了一件简单的黑色露肩连衣裙，让发箍成为主要的配饰。\"}],\"usage_note_zh\":\"“Headband” 指戴在头上的饰带或发箍。在迪士尼语境下，它通常特指 “Mickey ears headband”。\" }",
+    "parsed_json": {
+      "id": "i2",
+      "meaning_zh": "在迪士尼乐园游玩时，游客常佩戴带有标志性米奇耳朵造型的发箍（headband）作为拍照道具，这不仅是时尚穿搭的一部分，更是参与主题乐园节日氛围的有趣方式。",
+      "examples": [
+        {
+          "en": "I couldn't resist picking up a sparkly Mickey headband to complete my Halloween look in the park.",
+          "zh": "我忍不住买了一个闪闪发光的米奇发箍，来完善我在公园里的万圣节造型。"
+        },
+        {
+          "en": "She wore a simple black off-shoulder dress, letting the headband be the main accessory.",
+          "zh": "她穿了一件简单的黑色露肩连衣裙，让发箍成为主要的配饰。"
+        }
+      ],
+      "usage_note_zh": "“Headband” 指戴在头上的饰带或发箍。在迪士尼语境下，它通常特指 “Mickey ears headband”。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 4597.59,
+    "wall_clock_seconds": 4.598,
+    "usage_raw": {
+      "prompt_tokens": 2454,
+      "total_tokens": 2635,
+      "completion_tokens": 181,
+      "prompt_tokens_details": {
+        "cached_tokens": 2048,
+        "image_tokens": 2122,
+        "text_tokens": 332
+      },
+      "completion_tokens_details": {}
+    },
+    "usage_normalized": {
+      "input_tokens": 2454,
+      "output_tokens": 181,
+      "total_tokens": 2635,
+      "cached_input_tokens": 2048,
+      "reasoning_tokens": null
+    }
+  },
+  "test_context": {
+    "test_run_id": "qwen3.8-flash-20261018-184401",
+    "item_index": 2,
+    "item_id": "i2",
+    "detail_includes_image": true
+  }
+}

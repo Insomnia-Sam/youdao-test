@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "success": false,
+  "phase": "overall",
+  "started_at_utc": "2026-10-18T10:40:12.785+00:00",
+  "finished_at_utc": "2026-10-18T10:40:14.009+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "qwen3.8-flash",
+    "model_label": "qwen3.8-flash",
+    "endpoint": "https://ws-bntrjhzu6rspni2t.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+    "prompt": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户的英语大概在大学英语四、六级之间，能够应付旅行、点餐和日常交流，但未必达到专业或母语水平。性格上可能比较外向、自信，重视生活品质和仪式感，审美在线，喜欢旅行、美食、摄影和分享精致体验，也有一点浪漫、讲究排面。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/png",
+      "byte_size": 4270263
+    },
+    "body_without_image_or_secret": {
+      "model": "qwen3.8-flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/png\", \"byte_size\": 4270263}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户的英语大概在大学英语四、六级之间，能够应付旅行、点餐和日常交流，但未必达到专业或母语水平。性格上可能比较外向、自信，重视生活品质和仪式感，审美在线，喜欢旅行、美食、摄影和分享精致体验，也有一点浪漫、讲究排面。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": null,
+    "request_ids": {},
+    "raw_json": null,
+    "raw_text_if_non_json": "",
+    "content": "",
+    "parsed_json": null,
+    "parse_error": null,
+    "validation_errors": [],
+    "error": "URLError: <urlopen error [Errno 32] Broken pipe>"
+  },
+  "metrics": {
+    "wall_clock_ms": 1223.874,
+    "wall_clock_seconds": 1.224,
+    "usage_raw": null,
+    "usage_normalized": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "total_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_tokens": null
+    }
+  },
+  "test_context": {
+    "test_run_id": "qwen3.8-flash-20261018-184012",
+    "item_index": null,
+    "item_id": null,
+    "detail_includes_image": null
+  }
+}

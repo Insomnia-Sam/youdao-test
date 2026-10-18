@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-18T10:08:17.636+00:00",
+  "finished_at_utc": "2026-10-18T10:08:23.609+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户的英语大概在大学英语四、六级之间，能够应付旅行、点餐和日常交流，但未必达到专业或母语水平。性格上可能比较外向、自信，重视生活品质和仪式感，审美在线，喜欢旅行、美食、摄影和分享精致体验，也有一点浪漫、讲究排面。\n场景：\n摆满各类创意融合餐食的餐桌，搭配饮品与精致摆盘。\n目标条目：\n{\n  \"id\": \"i1\",\n  \"name_en\": \"skewers\",\n  \"name_zh\": \"肉串\",\n  \"label_en\": \"grilled meat skewers\",\n  \"label_zh\": \"烤肉串\",\n  \"point\": [\n    140,\n    230\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/png",
+      "byte_size": 4270263
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/png\", \"byte_size\": 4270263}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户的英语大概在大学英语四、六级之间，能够应付旅行、点餐和日常交流，但未必达到专业或母语水平。性格上可能比较外向、自信，重视生活品质和仪式感，审美在线，喜欢旅行、美食、摄影和分享精致体验，也有一点浪漫、讲究排面。\n场景：\n摆满各类创意融合餐食的餐桌，搭配饮品与精致摆盘。\n目标条目：\n{\n  \"id\": \"i1\",\n  \"name_en\": \"skewers\",\n  \"name_zh\": \"肉串\",\n  \"label_en\": \"grilled meat skewers\",\n  \"label_zh\": \"烤肉串\",\n  \"point\": [\n    140,\n    230\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "0217923180979693a896fd813ba69cc5a32d9445a671e51385017"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\": \"i1\", \"meaning_zh\": \"指图中摆盘里插着的烤嫩肉签子，是东南亚风味的小食。\", \"examples\": [{\"en\": \"These grilled meat skewers go perfectly with a glass of iced lime tea.\", \"zh\": \"这些烤肉串配一杯冰酸柑茶简直绝了。\"}, {\"en\": \"I love ordering vegetable skewers when I have BBQ with friends.\", \"zh\": \"和朋友吃烧烤时，我总爱点蔬菜串。\"}], \"usage_note_zh\": \"日常点单时用skewers即可，前面可加具体食材名，如chicken skewers（鸡肉串）、beef skewers（牛肉串）。\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792318103,
+      "id": "0217923180979693a896fd813ba69cc5a32d9445a671e51385017",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 156,
+        "prompt_tokens": 1781,
+        "total_tokens": 1937,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\": \"i1\", \"meaning_zh\": \"指图中摆盘里插着的烤嫩肉签子，是东南亚风味的小食。\", \"examples\": [{\"en\": \"These grilled meat skewers go perfectly with a glass of iced lime tea.\", \"zh\": \"这些烤肉串配一杯冰酸柑茶简直绝了。\"}, {\"en\": \"I love ordering vegetable skewers when I have BBQ with friends.\", \"zh\": \"和朋友吃烧烤时，我总爱点蔬菜串。\"}], \"usage_note_zh\": \"日常点单时用skewers即可，前面可加具体食材名，如chicken skewers（鸡肉串）、beef skewers（牛肉串）。\"}",
+    "parsed_json": {
+      "id": "i1",
+      "meaning_zh": "指图中摆盘里插着的烤嫩肉签子，是东南亚风味的小食。",
+      "examples": [
+        {
+          "en": "These grilled meat skewers go perfectly with a glass of iced lime tea.",
+          "zh": "这些烤肉串配一杯冰酸柑茶简直绝了。"
+        },
+        {
+          "en": "I love ordering vegetable skewers when I have BBQ with friends.",
+          "zh": "和朋友吃烧烤时，我总爱点蔬菜串。"
+        }
+      ],
+      "usage_note_zh": "日常点单时用skewers即可，前面可加具体食材名，如chicken skewers（鸡肉串）、beef skewers（牛肉串）。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 5973.427,
+    "wall_clock_seconds": 5.973,
+    "usage_raw": {
+      "completion_tokens": 156,
+      "prompt_tokens": 1781,
+      "total_tokens": 1937,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1781,
+      "output_tokens": 156,
+      "total_tokens": 1937,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "seed-2.1-lite-20261018-180621",
+    "item_index": 1,
+    "item_id": "i1",
+    "detail_includes_image": true
+  }
+}

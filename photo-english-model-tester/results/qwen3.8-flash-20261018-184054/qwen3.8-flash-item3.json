@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-18T10:41:19.787+00:00",
+  "finished_at_utc": "2026-10-18T10:41:23.829+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "qwen3.8-flash",
+    "model_label": "qwen3.8-flash",
+    "endpoint": "https://ws-bntrjhzu6rspni2t.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户的英语大概在大学英语四、六级之间，能够应付旅行、点餐和日常交流，但未必达到专业或母语水平。性格上可能比较外向、自信，重视生活品质和仪式感，审美在线，喜欢旅行、美食、摄影和分享精致体验，也有一点浪漫、讲究排面。\n场景：\n一桌丰盛精致的东南亚风味美食，包括烤串、沙拉和披萨等。\n目标条目：\n{\n  \"id\": \"i3\",\n  \"name_en\": \"pizza\",\n  \"name_zh\": \"披萨\",\n  \"label_en\": \"pizza topped with basil leaves\",\n  \"label_zh\": \"罗勒叶点缀的披萨\",\n  \"point\": [\n    270,\n    820\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/png",
+      "byte_size": 4270263
+    },
+    "body_without_image_or_secret": {
+      "model": "qwen3.8-flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/png\", \"byte_size\": 4270263}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户的英语大概在大学英语四、六级之间，能够应付旅行、点餐和日常交流，但未必达到专业或母语水平。性格上可能比较外向、自信，重视生活品质和仪式感，审美在线，喜欢旅行、美食、摄影和分享精致体验，也有一点浪漫、讲究排面。\n场景：\n一桌丰盛精致的东南亚风味美食，包括烤串、沙拉和披萨等。\n目标条目：\n{\n  \"id\": \"i3\",\n  \"name_en\": \"pizza\",\n  \"name_zh\": \"披萨\",\n  \"label_en\": \"pizza topped with basil leaves\",\n  \"label_zh\": \"罗勒叶点缀的披萨\",\n  \"point\": [\n    270,\n    820\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "48775962-5983-9d1a-a728-63242523747c"
+    },
+    "raw_json": {
+      "id": "chatcmpl-48775962-5983-9d1a-a728-63242523747c",
+      "object": "chat.completion",
+      "created": 1792320081,
+      "model": "qwen3.8-flash",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "reasoning_content": "",
+            "content": "{\"id\":\"i3\",\"meaning_zh\":\"在图片场景中，pizza指一种意式烤饼，上面铺有融化的奶酪、酱料和配料。图中这款披萨还点缀着新鲜的罗勒叶（basil leaves），使其看起来更具风味和视觉吸引力。\",\"examples\":[{\"en\":\"This pizza is topped with fresh basil, which gives it a nice aroma.\",\"zh\":\"这款披萨上面放了新鲜罗勒叶，闻起来很香。\"},{\"en\":\"Let's order a thin-crust pizza with extra cheese for the movie night.\",\"zh\":\"我们今晚看电影点一份薄脆芝士披萨吧。\"}],\"usage_note_zh\":\"描述披萨时常用“topped with...”来表达“上面加了什么配料”，例如：topped with mushrooms/pepperoni。\" }"
+          },
+          "finish_reason": "stop",
+          "logprobs": null
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 2170,
+        "total_tokens": 2332,
+        "completion_tokens": 162,
+        "prompt_tokens_details": {
+          "cached_tokens": 1792,
+          "image_tokens": 1842,
+          "text_tokens": 328
+        },
+        "completion_tokens_details": {}
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\":\"i3\",\"meaning_zh\":\"在图片场景中，pizza指一种意式烤饼，上面铺有融化的奶酪、酱料和配料。图中这款披萨还点缀着新鲜的罗勒叶（basil leaves），使其看起来更具风味和视觉吸引力。\",\"examples\":[{\"en\":\"This pizza is topped with fresh basil, which gives it a nice aroma.\",\"zh\":\"这款披萨上面放了新鲜罗勒叶，闻起来很香。\"},{\"en\":\"Let's order a thin-crust pizza with extra cheese for the movie night.\",\"zh\":\"我们今晚看电影点一份薄脆芝士披萨吧。\"}],\"usage_note_zh\":\"描述披萨时常用“topped with...”来表达“上面加了什么配料”，例如：topped with mushrooms/pepperoni。\" }",
+    "parsed_json": {
+      "id": "i3",
+      "meaning_zh": "在图片场景中，pizza指一种意式烤饼，上面铺有融化的奶酪、酱料和配料。图中这款披萨还点缀着新鲜的罗勒叶（basil leaves），使其看起来更具风味和视觉吸引力。",
+      "examples": [
+        {
+          "en": "This pizza is topped with fresh basil, which gives it a nice aroma.",
+          "zh": "这款披萨上面放了新鲜罗勒叶，闻起来很香。"
+        },
+        {
+          "en": "Let's order a thin-crust pizza with extra cheese for the movie night.",
+          "zh": "我们今晚看电影点一份薄脆芝士披萨吧。"
+        }
+      ],
+      "usage_note_zh": "描述披萨时常用“topped with...”来表达“上面加了什么配料”，例如：topped with mushrooms/pepperoni。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 4042.27,
+    "wall_clock_seconds": 4.042,
+    "usage_raw": {
+      "prompt_tokens": 2170,
+      "total_tokens": 2332,
+      "completion_tokens": 162,
+      "prompt_tokens_details": {
+        "cached_tokens": 1792,
+        "image_tokens": 1842,
+        "text_tokens": 328
+      },
+      "completion_tokens_details": {}
+    },
+    "usage_normalized": {
+      "input_tokens": 2170,
+      "output_tokens": 162,
+      "total_tokens": 2332,
+      "cached_input_tokens": 1792,
+      "reasoning_tokens": null
+    }
+  },
+  "test_context": {
+    "test_run_id": "qwen3.8-flash-20261018-184054",
+    "item_index": 3,
+    "item_id": "i3",
+    "detail_includes_image": true
+  }
+}

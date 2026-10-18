@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-18T09:45:11.402+00:00",
+  "finished_at_utc": "2026-10-18T09:45:15.628+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一位穿着黑色露肩短裙、戴着米奇发箍的年轻女生，坐在迪士尼乐园万圣节主题的米奇造型南瓜装置前拍照。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"Jack-o'-lantern\",\n  \"name_zh\": \"杰克南瓜灯\",\n  \"label_en\": \"smiling jack-o'-lantern\",\n  \"label_zh\": \"笑脸杰克南瓜灯\",\n  \"point\": [\n    60,\n    710\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/png",
+      "byte_size": 4000502
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/png\", \"byte_size\": 4000502}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一位穿着黑色露肩短裙、戴着米奇发箍的年轻女生，坐在迪士尼乐园万圣节主题的米奇造型南瓜装置前拍照。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"Jack-o'-lantern\",\n  \"name_zh\": \"杰克南瓜灯\",\n  \"label_en\": \"smiling jack-o'-lantern\",\n  \"label_zh\": \"笑脸杰克南瓜灯\",\n  \"point\": [\n    60,\n    710\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "021792316711779b775ef38f1ee27b2e55af1b66efc6d95b2e5aa"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\": \"i2\", \"meaning_zh\": \"指迪士尼万圣节装饰中雕刻出笑脸的南瓜灯摆件。\", \"examples\": [{\"en\": \"I snapped a photo with the cute smiling jack-o'-lantern next to the Mickey pumpkin sculpture.\", \"zh\": \"我在米奇南瓜雕塑旁和可爱的笑脸杰克南瓜灯合了影。\"}, {\"en\": \"We carved a grinning jack-o'-lantern for our Halloween porch display this year.\", \"zh\": \"今年万圣节我们雕了一个咧嘴笑的杰克南瓜灯摆在门廊做装饰。\"}], \"usage_note_zh\": \"\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792316715,
+      "id": "021792316711779b775ef38f1ee27b2e55af1b66efc6d95b2e5aa",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 131,
+        "prompt_tokens": 1785,
+        "total_tokens": 1916,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\": \"i2\", \"meaning_zh\": \"指迪士尼万圣节装饰中雕刻出笑脸的南瓜灯摆件。\", \"examples\": [{\"en\": \"I snapped a photo with the cute smiling jack-o'-lantern next to the Mickey pumpkin sculpture.\", \"zh\": \"我在米奇南瓜雕塑旁和可爱的笑脸杰克南瓜灯合了影。\"}, {\"en\": \"We carved a grinning jack-o'-lantern for our Halloween porch display this year.\", \"zh\": \"今年万圣节我们雕了一个咧嘴笑的杰克南瓜灯摆在门廊做装饰。\"}], \"usage_note_zh\": \"\"}",
+    "parsed_json": {
+      "id": "i2",
+      "meaning_zh": "指迪士尼万圣节装饰中雕刻出笑脸的南瓜灯摆件。",
+      "examples": [
+        {
+          "en": "I snapped a photo with the cute smiling jack-o'-lantern next to the Mickey pumpkin sculpture.",
+          "zh": "我在米奇南瓜雕塑旁和可爱的笑脸杰克南瓜灯合了影。"
+        },
+        {
+          "en": "We carved a grinning jack-o'-lantern for our Halloween porch display this year.",
+          "zh": "今年万圣节我们雕了一个咧嘴笑的杰克南瓜灯摆在门廊做装饰。"
+        }
+      ],
+      "usage_note_zh": ""
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 4225.58,
+    "wall_clock_seconds": 4.226,
+    "usage_raw": {
+      "completion_tokens": 131,
+      "prompt_tokens": 1785,
+      "total_tokens": 1916,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1785,
+      "output_tokens": 131,
+      "total_tokens": 1916,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_case": "TC01",
+    "item_index": 2,
+    "item_id": "i2",
+    "detail_includes_image": true
+  }
+}

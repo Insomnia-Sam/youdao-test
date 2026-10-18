@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-18T09:47:01.186+00:00",
+  "finished_at_utc": "2026-10-18T09:47:05.892+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一位穿着黑色露肩短裙、戴着米奇发箍的年轻女生，坐在迪士尼乐园万圣节主题的米奇造型南瓜装置前拍照。\n目标条目：\n{\n  \"id\": \"i3\",\n  \"name_en\": \"Halloween Flower Bed\",\n  \"name_zh\": \"万圣节主题花坛\",\n  \"label_en\": \"Halloween themed flower bed\",\n  \"label_zh\": \"万圣节主题花坛\",\n  \"point\": [\n    280,\n    670\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/png",
+      "byte_size": 4000502
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/png\", \"byte_size\": 4000502}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n一位穿着黑色露肩短裙、戴着米奇发箍的年轻女生，坐在迪士尼乐园万圣节主题的米奇造型南瓜装置前拍照。\n目标条目：\n{\n  \"id\": \"i3\",\n  \"name_en\": \"Halloween Flower Bed\",\n  \"name_zh\": \"万圣节主题花坛\",\n  \"label_en\": \"Halloween themed flower bed\",\n  \"label_zh\": \"万圣节主题花坛\",\n  \"point\": [\n    280,\n    670\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "0217923168215594f460b4bf651d7f47e0086eafd8c8f0ea920a5"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\": \"i3\", \"meaning_zh\": \"以万圣节元素布置、衬托迪士尼米奇南瓜装置的主题花坛，搭配南瓜造型摆件、枯树装饰与节日花艺，整体呈现迪士尼万圣节的限定节日氛围。\", \"examples\": [{\"en\": \"I stopped by the Halloween flower bed to take some photos with the giant Mickey pumpkin.\", \"zh\": \"我在万圣节主题花坛旁停下，和巨大的米奇南瓜拍了些照片。\"}, {\"en\": \"Our campus set up a beautiful Halloween flower bed near the main entrance this year.\", \"zh\": \"今年我们学校在正门附近布置了一个很漂亮的万圣节主题花坛。\"}], \"usage_note_zh\": \"泛指所有以万圣节为主题装饰、搭配节日元素的花坛，日常描述节日场景时可以使用。\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792316826,
+      "id": "0217923168215594f460b4bf651d7f47e0086eafd8c8f0ea920a5",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 168,
+        "prompt_tokens": 1782,
+        "total_tokens": 1950,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\": \"i3\", \"meaning_zh\": \"以万圣节元素布置、衬托迪士尼米奇南瓜装置的主题花坛，搭配南瓜造型摆件、枯树装饰与节日花艺，整体呈现迪士尼万圣节的限定节日氛围。\", \"examples\": [{\"en\": \"I stopped by the Halloween flower bed to take some photos with the giant Mickey pumpkin.\", \"zh\": \"我在万圣节主题花坛旁停下，和巨大的米奇南瓜拍了些照片。\"}, {\"en\": \"Our campus set up a beautiful Halloween flower bed near the main entrance this year.\", \"zh\": \"今年我们学校在正门附近布置了一个很漂亮的万圣节主题花坛。\"}], \"usage_note_zh\": \"泛指所有以万圣节为主题装饰、搭配节日元素的花坛，日常描述节日场景时可以使用。\"}",
+    "parsed_json": {
+      "id": "i3",
+      "meaning_zh": "以万圣节元素布置、衬托迪士尼米奇南瓜装置的主题花坛，搭配南瓜造型摆件、枯树装饰与节日花艺，整体呈现迪士尼万圣节的限定节日氛围。",
+      "examples": [
+        {
+          "en": "I stopped by the Halloween flower bed to take some photos with the giant Mickey pumpkin.",
+          "zh": "我在万圣节主题花坛旁停下，和巨大的米奇南瓜拍了些照片。"
+        },
+        {
+          "en": "Our campus set up a beautiful Halloween flower bed near the main entrance this year.",
+          "zh": "今年我们学校在正门附近布置了一个很漂亮的万圣节主题花坛。"
+        }
+      ],
+      "usage_note_zh": "泛指所有以万圣节为主题装饰、搭配节日元素的花坛，日常描述节日场景时可以使用。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 4705.891,
+    "wall_clock_seconds": 4.706,
+    "usage_raw": {
+      "completion_tokens": 168,
+      "prompt_tokens": 1782,
+      "total_tokens": 1950,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1782,
+      "output_tokens": 168,
+      "total_tokens": 1950,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_case": "TC01",
+    "item_index": 3,
+    "item_id": "i3",
+    "detail_includes_image": true
+  }
+}
