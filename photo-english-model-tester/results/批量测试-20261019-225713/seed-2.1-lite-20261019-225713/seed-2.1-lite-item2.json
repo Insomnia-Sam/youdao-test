@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-19T14:57:28.978+00:00",
+  "finished_at_utc": "2026-10-19T14:57:37.522+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n女士头戴米妮发箍，站在花境旁回望镜头，背景是黄昏下的迪士尼城堡。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"castle\",\n  \"name_zh\": \"城堡\",\n  \"label_en\": \"pink Disney castle spires\",\n  \"label_zh\": \"粉色迪士尼城堡尖塔\",\n  \"point\": [\n    470,\n    300\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 1017244
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 1017244}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n女士头戴米妮发箍，站在花境旁回望镜头，背景是黄昏下的迪士尼城堡。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"castle\",\n  \"name_zh\": \"城堡\",\n  \"label_en\": \"pink Disney castle spires\",\n  \"label_zh\": \"粉色迪士尼城堡尖塔\",\n  \"point\": [\n    470,\n    300\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "0217924218521932d028257773b48b117f8c4bedc94f46b5fc0ad"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\": \"i2\", \"meaning_zh\": \"指黄昏时分迪士尼乐园中带有粉色墙体和绿松石色尖顶的童话城堡，是乐园的标志性景观，常作为游玩打卡的核心背景。\", \"examples\": [{\"en\": \"The pink Disney castle spires glowing under the sunset look absolutely dreamy.\", \"zh\": \"夕阳下泛着暖光的粉色迪士尼城堡尖塔看起来简直像梦境一样。\"}, {\"en\": \"The wedding venue featured charming fairy-tale castle spires that matched the romantic vibe perfectly.\", \"zh\": \"婚礼场地设有迷人的童话城堡尖塔，和整体浪漫氛围完美契合。\"}], \"usage_note_zh\": \"castle 除了指代真实的城堡建筑，也可用来形容外观宏伟、富有童话感的建筑；日常描述旅行景点时，常用其复数形式 spires 突出建筑的标志性尖顶结构。\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792421860,
+      "id": "0217924218521932d028257773b48b117f8c4bedc94f46b5fc0ad",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 189,
+        "prompt_tokens": 1774,
+        "total_tokens": 1963,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\": \"i2\", \"meaning_zh\": \"指黄昏时分迪士尼乐园中带有粉色墙体和绿松石色尖顶的童话城堡，是乐园的标志性景观，常作为游玩打卡的核心背景。\", \"examples\": [{\"en\": \"The pink Disney castle spires glowing under the sunset look absolutely dreamy.\", \"zh\": \"夕阳下泛着暖光的粉色迪士尼城堡尖塔看起来简直像梦境一样。\"}, {\"en\": \"The wedding venue featured charming fairy-tale castle spires that matched the romantic vibe perfectly.\", \"zh\": \"婚礼场地设有迷人的童话城堡尖塔，和整体浪漫氛围完美契合。\"}], \"usage_note_zh\": \"castle 除了指代真实的城堡建筑，也可用来形容外观宏伟、富有童话感的建筑；日常描述旅行景点时，常用其复数形式 spires 突出建筑的标志性尖顶结构。\"}",
+    "parsed_json": {
+      "id": "i2",
+      "meaning_zh": "指黄昏时分迪士尼乐园中带有粉色墙体和绿松石色尖顶的童话城堡，是乐园的标志性景观，常作为游玩打卡的核心背景。",
+      "examples": [
+        {
+          "en": "The pink Disney castle spires glowing under the sunset look absolutely dreamy.",
+          "zh": "夕阳下泛着暖光的粉色迪士尼城堡尖塔看起来简直像梦境一样。"
+        },
+        {
+          "en": "The wedding venue featured charming fairy-tale castle spires that matched the romantic vibe perfectly.",
+          "zh": "婚礼场地设有迷人的童话城堡尖塔，和整体浪漫氛围完美契合。"
+        }
+      ],
+      "usage_note_zh": "castle 除了指代真实的城堡建筑，也可用来形容外观宏伟、富有童话感的建筑；日常描述旅行景点时，常用其复数形式 spires 突出建筑的标志性尖顶结构。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 8544.823,
+    "wall_clock_seconds": 8.545,
+    "usage_raw": {
+      "completion_tokens": 189,
+      "prompt_tokens": 1774,
+      "total_tokens": 1963,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1774,
+      "output_tokens": 189,
+      "total_tokens": 1963,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-225713/seed-2.1-lite-20261019-225713",
+    "batch_id": "批量测试-20261019-225713",
+    "image_original_name": "11.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": 2,
+    "item_id": "i2",
+    "detail_includes_image": true
+  }
+}

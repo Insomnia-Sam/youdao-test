@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "overall",
+  "started_at_utc": "2026-10-19T15:23:18.418+00:00",
+  "finished_at_utc": "2026-10-19T15:23:27.290+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 687212
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 687212}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "0217924233989487ca105f5574cf73b805fb1b9d3d8cfa0b99444"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"scene\": {\"context_zh\": \"整洁的家用厨房台面上摆放着备餐食材、烹饪厨具与收纳用品，整体布置温馨实用。\", \"caption_en\": \"A tidy home kitchen counter with prepped ingredients and cooking utensils ready for a meal.\", \"caption_zh\": \"整洁的家用厨房台面，备好了食材与烹饪厨具，随时可以开始烹饪。\"}, \"items\": [{\"id\": \"i1\", \"name_en\": \"wok\", \"name_zh\": \"炒锅\", \"label_en\": \"black wok with wooden handle\", \"label_zh\": \"木柄黑炒锅\", \"point\": [100, 490]}, {\"id\": \"i2\", \"name_en\": \"lettuce\", \"name_zh\": \"生菜\", \"label_en\": \"fresh lettuce leaves\", \"label_zh\": \"新鲜生菜叶\", \"point\": [340, 530]}, {\"id\": \"i3\", \"name_en\": \"pork slices\", \"name_zh\": \"猪肉片\", \"label_en\": \"raw pork slices\", \"label_zh\": \"生鲜猪肉片\", \"point\": [280, 580]}, {\"id\": \"i4\", \"name_en\": \"cutting board\", \"name_zh\": \"砧板\", \"label_en\": \"wooden cutting board\", \"label_zh\": \"木质砧板\", \"point\": [680, 580]}, {\"id\": \"i5\", \"name_en\": \"chef's knife\", \"name_zh\": \"主厨刀\", \"label_en\": \"sharp chef's knife\", \"label_zh\": \"锋利主厨刀\", \"point\": [665, 570]}, {\"id\": \"i6\", \"name_en\": \"dishwasher\", \"name_zh\": \"洗碗机\", \"label_en\": \"built-in dishwasher\", \"label_zh\": \"嵌入式洗碗机\", \"point\": [660, 780]}]}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792423407,
+      "id": "0217924233989487ca105f5574cf73b805fb1b9d3d8cfa0b99444",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 430,
+        "prompt_tokens": 1815,
+        "total_tokens": 2245,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"scene\": {\"context_zh\": \"整洁的家用厨房台面上摆放着备餐食材、烹饪厨具与收纳用品，整体布置温馨实用。\", \"caption_en\": \"A tidy home kitchen counter with prepped ingredients and cooking utensils ready for a meal.\", \"caption_zh\": \"整洁的家用厨房台面，备好了食材与烹饪厨具，随时可以开始烹饪。\"}, \"items\": [{\"id\": \"i1\", \"name_en\": \"wok\", \"name_zh\": \"炒锅\", \"label_en\": \"black wok with wooden handle\", \"label_zh\": \"木柄黑炒锅\", \"point\": [100, 490]}, {\"id\": \"i2\", \"name_en\": \"lettuce\", \"name_zh\": \"生菜\", \"label_en\": \"fresh lettuce leaves\", \"label_zh\": \"新鲜生菜叶\", \"point\": [340, 530]}, {\"id\": \"i3\", \"name_en\": \"pork slices\", \"name_zh\": \"猪肉片\", \"label_en\": \"raw pork slices\", \"label_zh\": \"生鲜猪肉片\", \"point\": [280, 580]}, {\"id\": \"i4\", \"name_en\": \"cutting board\", \"name_zh\": \"砧板\", \"label_en\": \"wooden cutting board\", \"label_zh\": \"木质砧板\", \"point\": [680, 580]}, {\"id\": \"i5\", \"name_en\": \"chef's knife\", \"name_zh\": \"主厨刀\", \"label_en\": \"sharp chef's knife\", \"label_zh\": \"锋利主厨刀\", \"point\": [665, 570]}, {\"id\": \"i6\", \"name_en\": \"dishwasher\", \"name_zh\": \"洗碗机\", \"label_en\": \"built-in dishwasher\", \"label_zh\": \"嵌入式洗碗机\", \"point\": [660, 780]}]}",
+    "parsed_json": {
+      "scene": {
+        "context_zh": "整洁的家用厨房台面上摆放着备餐食材、烹饪厨具与收纳用品，整体布置温馨实用。",
+        "caption_en": "A tidy home kitchen counter with prepped ingredients and cooking utensils ready for a meal.",
+        "caption_zh": "整洁的家用厨房台面，备好了食材与烹饪厨具，随时可以开始烹饪。"
+      },
+      "items": [
+        {
+          "id": "i1",
+          "name_en": "wok",
+          "name_zh": "炒锅",
+          "label_en": "black wok with wooden handle",
+          "label_zh": "木柄黑炒锅",
+          "point": [
+            100,
+            490
+          ]
+        },
+        {
+          "id": "i2",
+          "name_en": "lettuce",
+          "name_zh": "生菜",
+          "label_en": "fresh lettuce leaves",
+          "label_zh": "新鲜生菜叶",
+          "point": [
+            340,
+            530
+          ]
+        },
+        {
+          "id": "i3",
+          "name_en": "pork slices",
+          "name_zh": "猪肉片",
+          "label_en": "raw pork slices",
+          "label_zh": "生鲜猪肉片",
+          "point": [
+            280,
+            580
+          ]
+        },
+        {
+          "id": "i4",
+          "name_en": "cutting board",
+          "name_zh": "砧板",
+          "label_en": "wooden cutting board",
+          "label_zh": "木质砧板",
+          "point": [
+            680,
+            580
+          ]
+        },
+        {
+          "id": "i5",
+          "name_en": "chef's knife",
+          "name_zh": "主厨刀",
+          "label_en": "sharp chef's knife",
+          "label_zh": "锋利主厨刀",
+          "point": [
+            665,
+            570
+          ]
+        },
+        {
+          "id": "i6",
+          "name_en": "dishwasher",
+          "name_zh": "洗碗机",
+          "label_en": "built-in dishwasher",
+          "label_zh": "嵌入式洗碗机",
+          "point": [
+            660,
+            780
+          ]
+        }
+      ]
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 8872.288,
+    "wall_clock_seconds": 8.872,
+    "usage_raw": {
+      "completion_tokens": 430,
+      "prompt_tokens": 1815,
+      "total_tokens": 2245,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1815,
+      "output_tokens": 430,
+      "total_tokens": 2245,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-231943/seed-2.1-lite-20261019-232318",
+    "batch_id": "批量测试-20261019-231943",
+    "image_original_name": "25.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": null,
+    "item_id": null,
+    "detail_includes_image": null
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "overall",
+  "started_at_utc": "2026-10-19T15:22:34.365+00:00",
+  "finished_at_utc": "2026-10-19T15:22:43.462+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 978723
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 978723}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "021792423355034c7a72a88d43dfac05486ec15ae720432e71795"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"scene\": {\"context_zh\": \"夜晚临江的露天餐桌摆放着粤式腊味拼盘、海鲜炒饭与餐饮食具，远处是映着城市灯光的江面和楼宇夜景。\", \"caption_en\": \"Dining by the river at night, with the city skyline lights glowing on the water.\", \"caption_zh\": \"夜晚在江边用餐，城市天际线的灯光映在水面上。\"}, \"items\": [{\"id\": \"i1\", \"name_en\": \"cured meats platter\", \"name_zh\": \"腊味拼盘\", \"label_en\": \"cured meats platter with salted duck eggs\", \"label_zh\": \"配有咸鸭蛋的腊味拼盘\", \"point\": [290, 820]}, {\"id\": \"i2\", \"name_en\": \"seafood fried rice\", \"name_zh\": \"海鲜炒饭\", \"label_en\": \"seafood fried rice served in a metal pan\", \"label_zh\": \"盛在金属餐锅中的海鲜炒饭\", \"point\": [610, 770]}, {\"id\": \"i3\", \"name_en\": \"table lamp\", \"name_zh\": \"桌面餐灯\", \"label_en\": \"metal table lamp\", \"label_zh\": \"金属桌面餐灯\", \"point\": [440, 620]}, {\"id\": \"i4\", \"name_en\": \"teacup\", \"name_zh\": \"茶杯\", \"label_en\": \"porcelain teacup with faint green tea\", \"label_zh\": \"盛有淡绿茶汤的瓷茶杯\", \"point\": [210, 950]}, {\"id\": \"i5\", \"name_en\": \"glass teapot\", \"name_zh\": \"玻璃公道壶\", \"label_en\": \"clear glass teapot with light tea\", \"label_zh\": \"盛有淡色茶水的透明玻璃公道壶\", \"point\": [820, 900]}, {\"id\": \"i6\", \"name_en\": \"rattan-back chair\", \"name_zh\": \"藤编靠背椅\", \"label_en\": \"rattan-back outdoor dining chair\", \"label_zh\": \"藤编靠背户外餐椅\", \"point\": [920, 640]}]}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792423363,
+      "id": "021792423355034c7a72a88d43dfac05486ec15ae720432e71795",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 496,
+        "prompt_tokens": 1815,
+        "total_tokens": 2311,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"scene\": {\"context_zh\": \"夜晚临江的露天餐桌摆放着粤式腊味拼盘、海鲜炒饭与餐饮食具，远处是映着城市灯光的江面和楼宇夜景。\", \"caption_en\": \"Dining by the river at night, with the city skyline lights glowing on the water.\", \"caption_zh\": \"夜晚在江边用餐，城市天际线的灯光映在水面上。\"}, \"items\": [{\"id\": \"i1\", \"name_en\": \"cured meats platter\", \"name_zh\": \"腊味拼盘\", \"label_en\": \"cured meats platter with salted duck eggs\", \"label_zh\": \"配有咸鸭蛋的腊味拼盘\", \"point\": [290, 820]}, {\"id\": \"i2\", \"name_en\": \"seafood fried rice\", \"name_zh\": \"海鲜炒饭\", \"label_en\": \"seafood fried rice served in a metal pan\", \"label_zh\": \"盛在金属餐锅中的海鲜炒饭\", \"point\": [610, 770]}, {\"id\": \"i3\", \"name_en\": \"table lamp\", \"name_zh\": \"桌面餐灯\", \"label_en\": \"metal table lamp\", \"label_zh\": \"金属桌面餐灯\", \"point\": [440, 620]}, {\"id\": \"i4\", \"name_en\": \"teacup\", \"name_zh\": \"茶杯\", \"label_en\": \"porcelain teacup with faint green tea\", \"label_zh\": \"盛有淡绿茶汤的瓷茶杯\", \"point\": [210, 950]}, {\"id\": \"i5\", \"name_en\": \"glass teapot\", \"name_zh\": \"玻璃公道壶\", \"label_en\": \"clear glass teapot with light tea\", \"label_zh\": \"盛有淡色茶水的透明玻璃公道壶\", \"point\": [820, 900]}, {\"id\": \"i6\", \"name_en\": \"rattan-back chair\", \"name_zh\": \"藤编靠背椅\", \"label_en\": \"rattan-back outdoor dining chair\", \"label_zh\": \"藤编靠背户外餐椅\", \"point\": [920, 640]}]}",
+    "parsed_json": {
+      "scene": {
+        "context_zh": "夜晚临江的露天餐桌摆放着粤式腊味拼盘、海鲜炒饭与餐饮食具，远处是映着城市灯光的江面和楼宇夜景。",
+        "caption_en": "Dining by the river at night, with the city skyline lights glowing on the water.",
+        "caption_zh": "夜晚在江边用餐，城市天际线的灯光映在水面上。"
+      },
+      "items": [
+        {
+          "id": "i1",
+          "name_en": "cured meats platter",
+          "name_zh": "腊味拼盘",
+          "label_en": "cured meats platter with salted duck eggs",
+          "label_zh": "配有咸鸭蛋的腊味拼盘",
+          "point": [
+            290,
+            820
+          ]
+        },
+        {
+          "id": "i2",
+          "name_en": "seafood fried rice",
+          "name_zh": "海鲜炒饭",
+          "label_en": "seafood fried rice served in a metal pan",
+          "label_zh": "盛在金属餐锅中的海鲜炒饭",
+          "point": [
+            610,
+            770
+          ]
+        },
+        {
+          "id": "i3",
+          "name_en": "table lamp",
+          "name_zh": "桌面餐灯",
+          "label_en": "metal table lamp",
+          "label_zh": "金属桌面餐灯",
+          "point": [
+            440,
+            620
+          ]
+        },
+        {
+          "id": "i4",
+          "name_en": "teacup",
+          "name_zh": "茶杯",
+          "label_en": "porcelain teacup with faint green tea",
+          "label_zh": "盛有淡绿茶汤的瓷茶杯",
+          "point": [
+            210,
+            950
+          ]
+        },
+        {
+          "id": "i5",
+          "name_en": "glass teapot",
+          "name_zh": "玻璃公道壶",
+          "label_en": "clear glass teapot with light tea",
+          "label_zh": "盛有淡色茶水的透明玻璃公道壶",
+          "point": [
+            820,
+            900
+          ]
+        },
+        {
+          "id": "i6",
+          "name_en": "rattan-back chair",
+          "name_zh": "藤编靠背椅",
+          "label_en": "rattan-back outdoor dining chair",
+          "label_zh": "藤编靠背户外餐椅",
+          "point": [
+            920,
+            640
+          ]
+        }
+      ]
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 9097.501,
+    "wall_clock_seconds": 9.098,
+    "usage_raw": {
+      "completion_tokens": 496,
+      "prompt_tokens": 1815,
+      "total_tokens": 2311,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1815,
+      "output_tokens": 496,
+      "total_tokens": 2311,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-231943/seed-2.1-lite-20261019-232234",
+    "batch_id": "批量测试-20261019-231943",
+    "image_original_name": "24.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": null,
+    "item_id": null,
+    "detail_includes_image": null
+  }
+}

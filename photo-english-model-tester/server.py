@@ -31,7 +31,8 @@ from typing import Any
 APP_ROOT = Path(__file__).resolve().parent
 STATIC_ROOT = APP_ROOT / "static"
 DEFAULT_RESULTS_ROOT = APP_ROOT / "results"
-MAX_REQUEST_BYTES = 40 * 1024 * 1024
+MAX_REQUEST_BYTES = 250 * 1024 * 1024
+SUPPORTED_IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"}
 
 
 def utc_now_iso() -> str:
@@ -44,6 +45,27 @@ def safe_name(value: str, fallback: str = "unnamed") -> str:
     value = re.sub(r"\s+", "-", value)
     value = re.sub(r"-+", "-", value).strip("-.")
     return value[:100] or fallback
+
+
+def safe_relative_id(value: str) -> str:
+    raw_parts = str(value).replace("\\", "/").split("/")
+    if not raw_parts or any(part in {"", ".", ".."} for part in raw_parts):
+        raise ValueError("测试目录标识无效")
+    clean_parts = [safe_name(part, "") for part in raw_parts]
+    if any(not part for part in clean_parts):
+        raise ValueError("测试目录标识无效")
+    return "/".join(clean_parts)
+
+
+def resolve_results_path(results_root: Path, value: str) -> Path:
+    raw = Path(str(value).strip()).expanduser()
+    candidate = raw.resolve() if raw.is_absolute() else (results_root / raw).resolve()
+    root = results_root.resolve()
+    try:
+        candidate.relative_to(root)
+    except ValueError as exc:
+        raise ValueError("仅支持选择 results 目录内部的批次或测试目录") from exc
+    return candidate
 
 
 def endpoint_url(base_url: str) -> str:
@@ -71,6 +93,44 @@ def image_summary(data_url: str | None) -> dict[str, Any] | None:
     except Exception:
         byte_size = None
     return {"kind": "base64_data_url", "mime_type": mime, "byte_size": byte_size}
+
+
+def decode_image_data_url(data_url: str) -> tuple[str, bytes]:
+    match = re.match(r"^data:([^;,]+);base64,(.+)$", data_url, flags=re.DOTALL)
+    if not match:
+        raise ValueError("图片必须是合法的 Base64 Data URL")
+    mime = match.group(1).lower()
+    try:
+        raw = base64.b64decode(match.group(2), validate=True)
+    except Exception as exc:
+        raise ValueError("图片 Base64 内容无法解码") from exc
+    if not raw:
+        raise ValueError("图片内容为空")
+    return mime, raw
+
+
+def image_extension(mime: str, original_name: str = "") -> str:
+    suffix = Path(original_name).suffix.lower()
+    if suffix in SUPPORTED_IMAGE_SUFFIXES:
+        return ".jpg" if suffix == ".jpeg" else suffix
+    mapping = {
+        "image/png": ".png",
+        "image/jpeg": ".jpg",
+        "image/webp": ".webp",
+        "image/gif": ".gif",
+        "image/bmp": ".bmp",
+    }
+    return mapping.get(mime, ".img")
+
+
+def save_test_image(run_dir: Path, data_url: str, original_name: str) -> Path:
+    mime, raw = decode_image_data_url(data_url)
+    clean_stem = safe_name(Path(original_name).stem or "原图", "原图")
+    target = run_dir / f"原图-{clean_stem}{image_extension(mime, original_name)}"
+    temporary = target.with_suffix(target.suffix + f".{uuid.uuid4().hex}.tmp")
+    temporary.write_bytes(raw)
+    os.replace(temporary, target)
+    return target
 
 
 def build_messages(prompt: str, image_data_url: str | None) -> list[dict[str, Any]]:
@@ -392,6 +452,9 @@ def call_model(config: dict[str, Any]) -> dict[str, Any]:
         },
         "test_context": {
             "test_run_id": config.get("test_run_id"),
+            "batch_id": config.get("batch_id"),
+            "image_original_name": config.get("image_original_name"),
+            "user_profile": config.get("user_profile"),
             "item_index": config.get("item_index"),
             "item_id": config.get("item_id"),
             "detail_includes_image": bool(image_data_url) if phase == "item" else None,
@@ -412,21 +475,27 @@ def persist_result(
 ) -> tuple[Path, str]:
     model_label = safe_name(str(config.get("model_label") or config.get("model") or "model"), "model")
     phase = str(config.get("phase", "overall"))
+    requested_run_id = str(config.get("test_run_id") or "").strip()
+    allow_existing_overall = bool(config.get("allow_existing_overall"))
 
     if phase == "overall":
-        requested_run_id = str(config.get("test_run_id") or "").strip()
         if requested_run_id:
-            raise ValueError("首轮调用不得复用已有测试批次")
-        stamp = local_timestamp_from_utc(str(result.get("started_at_utc", "")))
-        base_run_id = safe_name(f"{model_label}-{stamp}", f"{model_label}-run")
-        test_run_id = base_run_id
-        suffix = 2
-        while (results_root / test_run_id).exists():
-            test_run_id = f"{base_run_id}-{suffix}"
-            suffix += 1
+            test_run_id = safe_relative_id(requested_run_id)
+            if not allow_existing_overall:
+                raise ValueError("首轮调用不得复用已有测试批次")
+            if not (results_root / test_run_id).is_dir():
+                raise ValueError(f"测试批次不存在：{test_run_id}")
+        else:
+            stamp = local_timestamp_from_utc(str(result.get("started_at_utc", "")))
+            base_run_id = safe_name(f"{model_label}-{stamp}", f"{model_label}-run")
+            test_run_id = base_run_id
+            suffix = 2
+            while (results_root / test_run_id).exists():
+                test_run_id = f"{base_run_id}-{suffix}"
+                suffix += 1
         filename = f"{model_label}-总体结果.json"
     else:
-        test_run_id = safe_name(str(config.get("test_run_id") or ""), "")
+        test_run_id = safe_relative_id(str(config.get("test_run_id") or ""))
         if not test_run_id:
             raise ValueError("详情调用缺少测试批次，请先完成一次首轮测试")
         run_dir = results_root / test_run_id
@@ -460,6 +529,258 @@ def persist_result(
     temporary.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     os.replace(temporary, target)
     return target, test_run_id
+
+
+def unique_directory(parent: Path, base_name: str) -> Path:
+    candidate = parent / base_name
+    suffix = 2
+    while candidate.exists():
+        candidate = parent / f"{base_name}-{suffix}"
+        suffix += 1
+    candidate.mkdir(parents=True, exist_ok=False)
+    return candidate
+
+
+def start_batch(results_root: Path) -> str:
+    stamp = datetime.now().astimezone().strftime("%Y%m%d-%H%M%S")
+    directory = unique_directory(results_root, f"批量测试-{stamp}")
+    return directory.name
+
+
+def prepare_batch_image(
+    results_root: Path, batch_id: str, model_label: str, image_name: str, image_data_url: str
+) -> dict[str, str]:
+    batch_path = resolve_results_path(results_root, batch_id)
+    if batch_path.parent != results_root.resolve() or not batch_path.is_dir() or not batch_path.name.startswith("批量测试-"):
+        raise ValueError("批量测试目录无效")
+    label = safe_name(model_label, "model")
+    stamp = datetime.now().astimezone().strftime("%Y%m%d-%H%M%S")
+    run_dir = unique_directory(batch_path, f"{label}-{stamp}")
+    image_path = save_test_image(run_dir, image_data_url, image_name)
+    run_id = str(run_dir.relative_to(results_root.resolve()))
+    return {
+        "batch_id": batch_path.name,
+        "test_run_id": run_id,
+        "image_relative_path": str(image_path.relative_to(results_root.resolve())),
+        "image_file_name": image_path.name,
+    }
+
+
+def find_original_image(run_dir: Path) -> Path | None:
+    image_files = [
+        path for path in run_dir.iterdir()
+        if path.is_file()
+        and path.suffix.lower() in SUPPORTED_IMAGE_SUFFIXES
+        and path.name != "坐标标注图.png"
+        and not path.name.startswith(".")
+    ]
+    preferred = sorted(path for path in image_files if path.name.startswith("原图-"))
+    if preferred:
+        return preferred[0]
+    return sorted(image_files)[0] if image_files else None
+
+
+def data_url_from_file(path: Path) -> str:
+    mime = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+    return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode('ascii')}"
+
+
+def load_run_context(results_root: Path, test_run_id: str) -> dict[str, Any]:
+    run_dir = resolve_results_path(results_root, safe_relative_id(test_run_id))
+    if not run_dir.is_dir():
+        raise ValueError("测试目录不存在")
+    overall_files = sorted(run_dir.glob("*-总体结果.json"))
+    if len(overall_files) != 1:
+        raise ValueError("测试目录缺少唯一的总体结果 JSON")
+    overall = json.loads(overall_files[0].read_text(encoding="utf-8"))
+    request = overall.get("request", {})
+    body = request.get("body_without_image_or_secret") or {}
+    extra_body = {
+        key: value for key, value in body.items()
+        if key not in {"model", "messages", "stream"}
+    }
+    image = find_original_image(run_dir)
+    item_records = []
+    for path in sorted(run_dir.glob("*-item*.json")):
+        try:
+            item_records.append(json.loads(path.read_text(encoding="utf-8")))
+        except (OSError, json.JSONDecodeError):
+            continue
+    context = overall.get("test_context", {})
+    return {
+        "test_run_id": str(run_dir.relative_to(results_root.resolve())),
+        "config": {
+            "provider": request.get("provider"),
+            "base_url": request.get("endpoint"),
+            "model": request.get("model"),
+            "model_label": request.get("model_label"),
+            "timeout_seconds": request.get("timeout_seconds", 180),
+            "extra_body": extra_body,
+        },
+        "user_profile": context.get("user_profile") or "",
+        "image_original_name": context.get("image_original_name") or (image.name if image else ""),
+        "image_data_url": data_url_from_file(image) if image else None,
+        "overall_record": overall,
+        "item_records": item_records,
+    }
+
+
+def finalize_batch(results_root: Path, batch_id: str) -> dict[str, Any]:
+    batch_dir = resolve_results_path(results_root, batch_id)
+    if batch_dir.parent != results_root.resolve() or not batch_dir.is_dir():
+        raise ValueError("批量测试目录不存在")
+    tests = []
+    failures = []
+    for run_dir in sorted(path for path in batch_dir.iterdir() if path.is_dir()):
+        overall_files = sorted(run_dir.glob("*-总体结果.json"))
+        image = find_original_image(run_dir)
+        entry: dict[str, Any] = {
+            "test_run_id": str(run_dir.relative_to(results_root.resolve())),
+            "image_file": image.name if image else None,
+            "status": "success",
+            "item_count": 0,
+        }
+        if len(overall_files) != 1:
+            entry["status"] = "failed"
+            entry["failures"] = [{"stage": "overall", "error": "缺少总体结果 JSON"}]
+        else:
+            try:
+                overall = json.loads(overall_files[0].read_text(encoding="utf-8"))
+                entry["overall_success"] = bool(overall.get("success"))
+                parsed = overall.get("response", {}).get("parsed_json") or {}
+                expected_items = parsed.get("items") if isinstance(parsed, dict) else []
+                expected_count = len(expected_items or []) if overall.get("success") else 0
+                entry["item_count"] = expected_count
+                local_failures = []
+                if not overall.get("success"):
+                    local_failures.append({"stage": "overall", "error": overall.get("response", {}).get("error") or overall.get("response", {}).get("parse_error") or "总体结果失败"})
+                else:
+                    for index in range(1, expected_count + 1):
+                        matches = list(run_dir.glob(f"*-item{index}.json"))
+                        if len(matches) != 1:
+                            local_failures.append({"stage": f"item{index}", "error": "缺少详情结果 JSON"})
+                            continue
+                        item_record = json.loads(matches[0].read_text(encoding="utf-8"))
+                        if not item_record.get("success"):
+                            local_failures.append({"stage": f"item{index}", "error": item_record.get("response", {}).get("error") or item_record.get("response", {}).get("parse_error") or "详情结果失败"})
+                if local_failures:
+                    entry["status"] = "failed"
+                    entry["failures"] = local_failures
+            except (OSError, json.JSONDecodeError) as exc:
+                entry["status"] = "failed"
+                entry["failures"] = [{"stage": "overall", "error": f"总体结果无法读取：{exc}"}]
+        tests.append(entry)
+        if entry["status"] != "success":
+            failures.append(entry)
+    summary = {
+        "batch_id": batch_dir.name,
+        "finished_at": utc_now_iso(),
+        "test_count": len(tests),
+        "success_count": len(tests) - len(failures),
+        "failure_count": len(failures),
+        "tests": tests,
+        "failures": failures,
+    }
+    target = batch_dir / "批次结果.json"
+    temporary = target.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(temporary, target)
+    return summary
+
+
+def generate_excel_reports(results_root: Path, requested_path: str) -> dict[str, Any]:
+    from reporting import generate_reports
+
+    root = resolve_results_path(results_root, requested_path)
+    if not root.is_dir():
+        raise ValueError("汇总目录不存在")
+    result = generate_reports(root)
+    result["root"] = str(root)
+    result["generated_relative"] = [
+        str(Path(path).resolve().relative_to(results_root.resolve()))
+        for path in result["generated"]
+    ]
+    return result
+
+
+def generate_annotations(results_root: Path, requested_path: str) -> dict[str, Any]:
+    from annotation import annotate_from_result
+    from reporting import discover_run_dirs
+
+    root = resolve_results_path(results_root, requested_path)
+    if not root.is_dir():
+        raise ValueError("标注目录不存在")
+    run_dirs = discover_run_dirs(root)
+    if not run_dirs:
+        raise ValueError("所选目录及其子目录中没有找到唯一的总体结果 JSON")
+    generated = []
+    failed = []
+    for run_dir in run_dirs:
+        try:
+            image = find_original_image(run_dir)
+            if image is None:
+                raise ValueError("缺少以“原图-”开头的测试图片")
+            overall_files = sorted(run_dir.glob("*-总体结果.json"))
+            if len(overall_files) != 1:
+                raise ValueError("缺少唯一的总体结果 JSON")
+            output = run_dir / "坐标标注图.png"
+            if output.exists():
+                archive_dir = run_dir / "archive"
+                archive_dir.mkdir(parents=True, exist_ok=True)
+                stamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+                shutil.copy2(output, archive_dir / f"坐标标注图__{stamp}.png")
+            detail = annotate_from_result(image, overall_files[0], output)
+            detail["test_run_id"] = str(run_dir.relative_to(results_root.resolve()))
+            detail["output_relative"] = str(output.relative_to(results_root.resolve()))
+            generated.append(detail)
+        except Exception as exc:
+            failed.append({
+                "directory": str(run_dir.relative_to(results_root.resolve())),
+                "error": f"{type(exc).__name__}: {exc}",
+            })
+    return {
+        "root": str(root),
+        "run_directory_count": len(run_dirs),
+        "generated": generated,
+        "failed": failed,
+    }
+
+
+def save_manual_overall(results_root: Path, test_run_id: str, overall_json: Any) -> dict[str, Any]:
+    if not isinstance(overall_json, dict):
+        raise ValueError("人工总体结果必须是 JSON 对象")
+    validation_errors = validate_model_json(overall_json, "overall")
+    if validation_errors:
+        raise ValueError("人工总体结果结构不合格：" + "；".join(validation_errors))
+    run_dir = resolve_results_path(results_root, safe_relative_id(test_run_id))
+    if not run_dir.is_dir():
+        raise ValueError("测试目录不存在")
+    matches = sorted(run_dir.glob("*-总体结果.json"))
+    if len(matches) != 1:
+        raise ValueError("测试目录缺少唯一的总体结果 JSON")
+    target = matches[0]
+    record = json.loads(target.read_text(encoding="utf-8"))
+    current = record.get("response", {}).get("parsed_json")
+    if current == overall_json and record.get("success"):
+        return {"updated": False, "record": record, "path": str(target)}
+
+    archive_dir = run_dir / "archive"
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+    shutil.copy2(target, archive_dir / f"{target.stem}__manual-before-{stamp}.json")
+    response = record.setdefault("response", {})
+    response["parsed_json"] = overall_json
+    response["parse_error"] = None
+    response["validation_errors"] = []
+    response["manual_review_json"] = overall_json
+    record["success"] = True
+    context = record.setdefault("test_context", {})
+    context["manual_override"] = True
+    context["manual_override_at"] = utc_now_iso()
+    temporary = target.with_suffix(target.suffix + f".{uuid.uuid4().hex}.tmp")
+    temporary.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(temporary, target)
+    return {"updated": True, "record": record, "path": str(target)}
 
 
 class AppHandler(SimpleHTTPRequestHandler):
@@ -503,13 +824,40 @@ class AppHandler(SimpleHTTPRequestHandler):
                     })
             self.send_json(200, {"files": files})
             return
+        if parsed.path == "/api/result-directories":
+            directories = []
+            if self.results_root.exists():
+                for path in self.results_root.rglob("*"):
+                    if not path.is_dir() or "archive" in path.parts:
+                        continue
+                    has_overall = len(list(path.glob("*-总体结果.json"))) == 1
+                    has_children = any(child.is_dir() for child in path.iterdir())
+                    if has_overall or path.name.startswith("批量测试-") or has_children:
+                        directories.append({
+                            "path": str(path.relative_to(self.results_root)),
+                            "kind": "test" if has_overall else "batch",
+                            "modified_at": datetime.fromtimestamp(path.stat().st_mtime, timezone.utc).isoformat(),
+                        })
+            directories.sort(key=lambda item: item["modified_at"], reverse=True)
+            self.send_json(200, {"directories": directories})
+            return
         if parsed.path in {"", "/"}:
             self.path = "/index.html"
         super().do_GET()
 
     def do_POST(self) -> None:
         parsed = urllib.parse.urlparse(self.path)
-        if parsed.path != "/api/run":
+        valid_paths = {
+            "/api/run",
+            "/api/batch/start",
+            "/api/batch/prepare-image",
+            "/api/batch/finalize",
+            "/api/run-context",
+            "/api/run-context/save-overall",
+            "/api/reports/generate",
+            "/api/annotations/generate",
+        }
+        if parsed.path not in valid_paths:
             self.send_json(404, {"error": "Not found"})
             return
 
@@ -527,14 +875,44 @@ class AppHandler(SimpleHTTPRequestHandler):
             config = json.loads(raw.decode("utf-8"))
             if not isinstance(config, dict):
                 raise ValueError("请求体必须是 JSON 对象")
-            result = call_model(config)
-            saved_path, test_run_id = persist_result(result, config, self.results_root)
-            response_payload = {
-                "result": result,
-                "test_run_id": test_run_id,
-                "saved_path": str(saved_path),
-                "saved_relative_path": str(saved_path.relative_to(self.results_root)),
-            }
+
+            if parsed.path == "/api/run":
+                result = call_model(config)
+                saved_path, test_run_id = persist_result(result, config, self.results_root)
+                run_dir = self.results_root / test_run_id
+                image_data_url = config.get("image_data_url")
+                if config.get("phase") == "overall" and image_data_url and find_original_image(run_dir) is None:
+                    save_test_image(run_dir, str(image_data_url), str(config.get("image_original_name") or "image"))
+                response_payload = {
+                    "result": result,
+                    "test_run_id": test_run_id,
+                    "saved_path": str(saved_path),
+                    "saved_relative_path": str(saved_path.relative_to(self.results_root)),
+                }
+            elif parsed.path == "/api/batch/start":
+                response_payload = {"batch_id": start_batch(self.results_root)}
+            elif parsed.path == "/api/batch/prepare-image":
+                response_payload = prepare_batch_image(
+                    self.results_root,
+                    str(config.get("batch_id") or ""),
+                    str(config.get("model_label") or ""),
+                    str(config.get("image_name") or "image"),
+                    str(config.get("image_data_url") or ""),
+                )
+            elif parsed.path == "/api/batch/finalize":
+                response_payload = finalize_batch(self.results_root, str(config.get("batch_id") or ""))
+            elif parsed.path == "/api/run-context":
+                response_payload = load_run_context(self.results_root, str(config.get("test_run_id") or ""))
+            elif parsed.path == "/api/run-context/save-overall":
+                response_payload = save_manual_overall(
+                    self.results_root,
+                    str(config.get("test_run_id") or ""),
+                    config.get("overall_json"),
+                )
+            elif parsed.path == "/api/reports/generate":
+                response_payload = generate_excel_reports(self.results_root, str(config.get("path") or ""))
+            else:
+                response_payload = generate_annotations(self.results_root, str(config.get("path") or ""))
             self.send_json(200, response_payload)
         except ValueError as exc:
             self.send_json(400, {"error": str(exc)})

@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-19T14:59:40.359+00:00",
+  "finished_at_utc": "2026-10-19T14:59:45.952+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n夜晚的长隆欢乐世界游乐场内，亮着暖光的双层旋转木马前站着一位穿黑裙的女生。\n目标条目：\n{\n  \"id\": \"i1\",\n  \"name_en\": \"carousel\",\n  \"name_zh\": \"旋转木马\",\n  \"label_en\": \"double-decker carousel\",\n  \"label_zh\": \"双层旋转木马\",\n  \"point\": [\n    526,\n    286\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 1365470
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 1365470}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n夜晚的长隆欢乐世界游乐场内，亮着暖光的双层旋转木马前站着一位穿黑裙的女生。\n目标条目：\n{\n  \"id\": \"i1\",\n  \"name_en\": \"carousel\",\n  \"name_zh\": \"旋转木马\",\n  \"label_en\": \"double-decker carousel\",\n  \"label_zh\": \"双层旋转木马\",\n  \"point\": [\n    526,\n    286\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "0217924219831072de38e8299405d0a4d8e2bf74997350e3eb99c"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\":\"i1\",\"meaning_zh\":\"指双层结构、夜晚装饰着暖光串灯的复古旋转木马设施，是主题乐园的经典游乐项目。\",\"examples\":[{\"en\":\"The double-decker carousel at Chimelong Paradise glows warm in the dark, like a dream floating under the night sky.\",\"zh\":\"长隆欢乐世界的双层旋转木马在夜色里暖光璀璨，像夜空下悬浮的一场梦。\"},{\"en\":\"I always grab a photo by the vintage carousel every time I visit a new theme park during festivals.\",\"zh\":\"每次去新的主题乐园过节，我总喜欢在复古旋转木马旁拍张照。\"}],\"usage_note_zh\":\"日常表达里可以用 'fairground carousel' 指代游乐园里的普通旋转木马。\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792421988,
+      "id": "0217924219831072de38e8299405d0a4d8e2bf74997350e3eb99c",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 167,
+        "prompt_tokens": 1776,
+        "total_tokens": 1943,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\":\"i1\",\"meaning_zh\":\"指双层结构、夜晚装饰着暖光串灯的复古旋转木马设施，是主题乐园的经典游乐项目。\",\"examples\":[{\"en\":\"The double-decker carousel at Chimelong Paradise glows warm in the dark, like a dream floating under the night sky.\",\"zh\":\"长隆欢乐世界的双层旋转木马在夜色里暖光璀璨，像夜空下悬浮的一场梦。\"},{\"en\":\"I always grab a photo by the vintage carousel every time I visit a new theme park during festivals.\",\"zh\":\"每次去新的主题乐园过节，我总喜欢在复古旋转木马旁拍张照。\"}],\"usage_note_zh\":\"日常表达里可以用 'fairground carousel' 指代游乐园里的普通旋转木马。\"}",
+    "parsed_json": {
+      "id": "i1",
+      "meaning_zh": "指双层结构、夜晚装饰着暖光串灯的复古旋转木马设施，是主题乐园的经典游乐项目。",
+      "examples": [
+        {
+          "en": "The double-decker carousel at Chimelong Paradise glows warm in the dark, like a dream floating under the night sky.",
+          "zh": "长隆欢乐世界的双层旋转木马在夜色里暖光璀璨，像夜空下悬浮的一场梦。"
+        },
+        {
+          "en": "I always grab a photo by the vintage carousel every time I visit a new theme park during festivals.",
+          "zh": "每次去新的主题乐园过节，我总喜欢在复古旋转木马旁拍张照。"
+        }
+      ],
+      "usage_note_zh": "日常表达里可以用 'fairground carousel' 指代游乐园里的普通旋转木马。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 5592.929,
+    "wall_clock_seconds": 5.593,
+    "usage_raw": {
+      "completion_tokens": 167,
+      "prompt_tokens": 1776,
+      "total_tokens": 1943,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1776,
+      "output_tokens": 167,
+      "total_tokens": 1943,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-225713/seed-2.1-lite-20261019-225930",
+    "batch_id": "批量测试-20261019-225713",
+    "image_original_name": "14.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": 1,
+    "item_id": "i1",
+    "detail_includes_image": true
+  }
+}

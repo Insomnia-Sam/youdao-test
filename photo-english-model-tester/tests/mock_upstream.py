@@ -49,10 +49,11 @@ class Handler(BaseHTTPRequestHandler):
         else:
             text = str(content)
         result = ITEM if "指定条目" in text else OVERALL
+        response_content = "not-json" if "FORCE_OVERALL_FAILURE" in text else json.dumps(result, ensure_ascii=False)
         response = {
             "id": "mock-response",
             "model": payload.get("model", "mock-model"),
-            "choices": [{"index": 0, "message": {"role": "assistant", "content": json.dumps(result, ensure_ascii=False)}, "finish_reason": "stop"}],
+            "choices": [{"index": 0, "message": {"role": "assistant", "content": response_content}, "finish_reason": "stop"}],
             "usage": {
                 "prompt_tokens": 321,
                 "completion_tokens": 123,

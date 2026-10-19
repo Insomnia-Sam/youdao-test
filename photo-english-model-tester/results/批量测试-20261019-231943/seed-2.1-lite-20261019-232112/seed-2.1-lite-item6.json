@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-19T15:21:44.436+00:00",
+  "finished_at_utc": "2026-10-19T15:21:49.201+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n俯拍木质托盘上的甜点与咖啡餐品，摆放着餐盘、两把餐叉、餐巾与杯垫。\n目标条目：\n{\n  \"id\": \"i6\",\n  \"name_en\": \"paper napkin\",\n  \"name_zh\": \"印花纸巾\",\n  \"label_en\": \"paper napkin\",\n  \"label_zh\": \"印花纸巾\",\n  \"point\": [\n    180,\n    480\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 956738
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 956738}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n俯拍木质托盘上的甜点与咖啡餐品，摆放着餐盘、两把餐叉、餐巾与杯垫。\n目标条目：\n{\n  \"id\": \"i6\",\n  \"name_en\": \"paper napkin\",\n  \"name_zh\": \"印花纸巾\",\n  \"label_en\": \"paper napkin\",\n  \"label_zh\": \"印花纸巾\",\n  \"point\": [\n    180,\n    480\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "0217924233046853b1efaefedc80320ce9d044f8a4375a98584e9"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\":\"i6\",\"meaning_zh\":\"指印有店铺标识与图案、夹在餐盘与咖啡杯之间的一次性纸巾，用于用餐时擦拭嘴角或手部。\",\"examples\":[{\"en\":\"The paper napkin under the forks is printed with the shop's cute dog logo.\",\"zh\":\"餐叉下方的印花纸巾上印着这家店可爱的小狗标识。\"},{\"en\":\"I always tuck a paper napkin into my bag before eating street food to avoid getting my clothes dirty.\",\"zh\":\"吃街头小吃前，我总会在包里塞一张印花纸巾，以免弄脏衣服。\"}],\"usage_note_zh\":\"\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792423309,
+      "id": "0217924233046853b1efaefedc80320ce9d044f8a4375a98584e9",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 135,
+        "prompt_tokens": 1774,
+        "total_tokens": 1909,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\":\"i6\",\"meaning_zh\":\"指印有店铺标识与图案、夹在餐盘与咖啡杯之间的一次性纸巾，用于用餐时擦拭嘴角或手部。\",\"examples\":[{\"en\":\"The paper napkin under the forks is printed with the shop's cute dog logo.\",\"zh\":\"餐叉下方的印花纸巾上印着这家店可爱的小狗标识。\"},{\"en\":\"I always tuck a paper napkin into my bag before eating street food to avoid getting my clothes dirty.\",\"zh\":\"吃街头小吃前，我总会在包里塞一张印花纸巾，以免弄脏衣服。\"}],\"usage_note_zh\":\"\"}",
+    "parsed_json": {
+      "id": "i6",
+      "meaning_zh": "指印有店铺标识与图案、夹在餐盘与咖啡杯之间的一次性纸巾，用于用餐时擦拭嘴角或手部。",
+      "examples": [
+        {
+          "en": "The paper napkin under the forks is printed with the shop's cute dog logo.",
+          "zh": "餐叉下方的印花纸巾上印着这家店可爱的小狗标识。"
+        },
+        {
+          "en": "I always tuck a paper napkin into my bag before eating street food to avoid getting my clothes dirty.",
+          "zh": "吃街头小吃前，我总会在包里塞一张印花纸巾，以免弄脏衣服。"
+        }
+      ],
+      "usage_note_zh": ""
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 4764.943,
+    "wall_clock_seconds": 4.765,
+    "usage_raw": {
+      "completion_tokens": 135,
+      "prompt_tokens": 1774,
+      "total_tokens": 1909,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1774,
+      "output_tokens": 135,
+      "total_tokens": 1909,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-231943/seed-2.1-lite-20261019-232112",
+    "batch_id": "批量测试-20261019-231943",
+    "image_original_name": "17.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": 6,
+    "item_id": "i6",
+    "detail_includes_image": true
+  }
+}

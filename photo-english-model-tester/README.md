@@ -11,6 +11,10 @@
 - 每个 item 单独人工触发；详情是否携带原图可切换。
 - 页面与终端同时输出完整提示词和指标，但绝不输出 API Key 或图片 Base64。
 - 每次首轮调用自动创建“模型名-本地时间戳”测试目录；该轮全部 item 结果固定写入同一目录。
+- 批量模式按图片串行测试，按实际 items 数执行详情调用；总体失败跳过该图详情并继续下一张。
+- 批量根目录下每张图片一个测试目录，保存原图、总体/详情 JSON；失败项可恢复到手动测试区重试。
+- 可输入或选择 results 内目录，为每个图片测试目录生成一份三列 `结果汇总.xlsx`。
+- 可选择单个测试目录或批量根目录，读取原图和首轮 items，在原目录生成 `坐标标注图.png`；重复生成时旧图进入 `archive/`。
 
 ## 启动
 
@@ -18,6 +22,9 @@ macOS / Linux：
 
 ```bash
 cd "/Users/bytedance/work/youdao-test/photo-english-model-tester"
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
 python3 server.py
 ```
 
@@ -29,7 +36,7 @@ http://127.0.0.1:8765
 
 停止服务：在启动终端按 `Ctrl+C`。
 
-项目仅使用 Python 标准库，不需要安装 pip 或 npm 依赖。
+项目后端主体使用 Python 标准库；Excel 汇总和坐标标注需要安装 `requirements.txt` 中的 `openpyxl`、`Pillow`，无需安装 npm 依赖。
 
 ## 默认模型配置
 
@@ -52,14 +59,25 @@ http://127.0.0.1:8765
 
 ```text
 results/
-└── seed-2.1-lite-20261018-174256/
-    ├── seed-2.1-lite-总体结果.json
-    ├── seed-2.1-lite-item1.json
-    ├── seed-2.1-lite-item2.json
-    └── archive/
+├── seed-2.1-lite-20261018-174256/
+│   ├── 原图-example.png
+│   ├── seed-2.1-lite-总体结果.json
+│   ├── seed-2.1-lite-item1.json
+│   ├── 坐标标注图.png
+│   ├── 结果汇总.xlsx
+│   └── archive/
+└── 批量测试-20261019-103000/
+    ├── seed-2.1-lite-20261019-103001/
+    │   ├── 原图-image-01.png
+    │   ├── seed-2.1-lite-总体结果.json
+    │   ├── seed-2.1-lite-item1.json
+    │   └── 结果汇总.xlsx
+    ├── seed-2.1-lite-20261019-103015/
+    │   └── ...
+    └── 批次结果.json
 ```
 
-每次点击“调用首轮模型”都会创建新目录，即使图片和模型没有变化也不会复用旧目录。同一轮里重复调用某个 item 时，旧的同名结果会先复制到该轮的 `archive/`。
+每次点击“调用首轮模型”都会创建新目录，即使图片和模型没有变化也不会复用旧目录。同一轮里重复调用某个 item 时，旧的同名结果会先复制到该轮的 `archive/`。批量模式为每张图片创建独立测试目录；正常识别 6 项时为 7 个 JSON，识别不足 6 项时按实际数量生成。
 
 每个 JSON 主要包含：
 
@@ -72,6 +90,14 @@ results/
 - `metrics.usage_raw`：供应商返回的原始 usage。
 - `metrics.usage_normalized`：统一后的输入、输出、总计、缓存与思考 token。
 - `test_context.detail_includes_image`：详情调用是否携带原图。
+
+## Excel 人工审核汇总
+
+每个图片测试目录生成一份 `结果汇总.xlsx`，固定三列：`详情内容`、`时延（秒）`、`Token 消耗`。内容列使用人类可读标题，包括“场景描述、英文场景表达、中文场景表达、学习词汇、学习内容、释义、例句、中文译文、用法提示”，不展示 JSON 字段名。
+
+## 坐标标注图
+
+选择单个测试目录时生成一张，选择批量测试根目录时递归为每个图片测试目录生成。系统优先读取 `原图-*`，也兼容目录内其他常见图片；首轮数据支持当前审计 JSON 的 `response.parsed_json.items`，也兼容顶层 `items`。标注图只复现模型给出的坐标，不自动判断坐标是否正确。
 
 ## 计量边界
 

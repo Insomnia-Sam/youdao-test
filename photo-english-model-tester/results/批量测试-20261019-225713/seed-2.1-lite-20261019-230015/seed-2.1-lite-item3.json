@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-19T15:00:37.620+00:00",
+  "finished_at_utc": "2026-10-19T15:00:43.386+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n夜晚的迪士尼乐园正举办万圣节主题活动，城堡前燃放着烟花，草坪上布置了南瓜灯与幽灵造型装饰，游客们在园区内观赏游玩。\n目标条目：\n{\n  \"id\": \"i3\",\n  \"name_en\": \"Haunted Mansion\",\n  \"name_zh\": \"幽灵公馆\",\n  \"label_en\": \"Spooky haunted mansion\",\n  \"label_zh\": \"诡异的幽灵公馆\",\n  \"point\": [\n    470,\n    630\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 1358142
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 1358142}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n夜晚的迪士尼乐园正举办万圣节主题活动，城堡前燃放着烟花，草坪上布置了南瓜灯与幽灵造型装饰，游客们在园区内观赏游玩。\n目标条目：\n{\n  \"id\": \"i3\",\n  \"name_en\": \"Haunted Mansion\",\n  \"name_zh\": \"幽灵公馆\",\n  \"label_en\": \"Spooky haunted mansion\",\n  \"label_zh\": \"诡异的幽灵公馆\",\n  \"point\": [\n    470,\n    630\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "02179242203781643b85dfdabac66aff760e23d27beea59c9577b"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\": \"i3\", \"meaning_zh\": \"迪士尼园区内的鬼屋游乐项目，万圣节期间被南瓜灯、幽灵造型装饰烘托出诡谲氛围，是游客争相打卡的热门去处。\", \"examples\": [{\"en\": \"We waited in line for an hour just to experience the Haunted Mansion during the Halloween event.\", \"zh\": \"万圣节活动期间，我们排了一个小时的队，只为体验幽灵公馆这个项目。\"}, {\"en\": \"My friend is too scared to visit the Haunted Mansion, so I ended up going alone.\", \"zh\": \"我朋友不敢去鬼屋，最后我只能一个人去。\"}], \"usage_note_zh\": \"在乐园语境下特指幽灵公馆项目，日常可泛指各类鬼屋娱乐设施。\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792422043,
+      "id": "02179242203781643b85dfdabac66aff760e23d27beea59c9577b",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 166,
+        "prompt_tokens": 1803,
+        "total_tokens": 1969,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\": \"i3\", \"meaning_zh\": \"迪士尼园区内的鬼屋游乐项目，万圣节期间被南瓜灯、幽灵造型装饰烘托出诡谲氛围，是游客争相打卡的热门去处。\", \"examples\": [{\"en\": \"We waited in line for an hour just to experience the Haunted Mansion during the Halloween event.\", \"zh\": \"万圣节活动期间，我们排了一个小时的队，只为体验幽灵公馆这个项目。\"}, {\"en\": \"My friend is too scared to visit the Haunted Mansion, so I ended up going alone.\", \"zh\": \"我朋友不敢去鬼屋，最后我只能一个人去。\"}], \"usage_note_zh\": \"在乐园语境下特指幽灵公馆项目，日常可泛指各类鬼屋娱乐设施。\"}",
+    "parsed_json": {
+      "id": "i3",
+      "meaning_zh": "迪士尼园区内的鬼屋游乐项目，万圣节期间被南瓜灯、幽灵造型装饰烘托出诡谲氛围，是游客争相打卡的热门去处。",
+      "examples": [
+        {
+          "en": "We waited in line for an hour just to experience the Haunted Mansion during the Halloween event.",
+          "zh": "万圣节活动期间，我们排了一个小时的队，只为体验幽灵公馆这个项目。"
+        },
+        {
+          "en": "My friend is too scared to visit the Haunted Mansion, so I ended up going alone.",
+          "zh": "我朋友不敢去鬼屋，最后我只能一个人去。"
+        }
+      ],
+      "usage_note_zh": "在乐园语境下特指幽灵公馆项目，日常可泛指各类鬼屋娱乐设施。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 5766.039,
+    "wall_clock_seconds": 5.766,
+    "usage_raw": {
+      "completion_tokens": 166,
+      "prompt_tokens": 1803,
+      "total_tokens": 1969,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1803,
+      "output_tokens": 166,
+      "total_tokens": 1969,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-225713/seed-2.1-lite-20261019-230015",
+    "batch_id": "批量测试-20261019-225713",
+    "image_original_name": "21.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": 3,
+    "item_id": "i3",
+    "detail_includes_image": true
+  }
+}

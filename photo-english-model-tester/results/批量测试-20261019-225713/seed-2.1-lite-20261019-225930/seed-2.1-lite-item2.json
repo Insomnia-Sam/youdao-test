@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "item",
+  "started_at_utc": "2026-10-19T14:59:46.072+00:00",
+  "finished_at_utc": "2026-10-19T14:59:53.440+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n夜晚的长隆欢乐世界游乐场内，亮着暖光的双层旋转木马前站着一位穿黑裙的女生。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"sling bag\",\n  \"name_zh\": \"挎包\",\n  \"label_en\": \"beige chain sling bag\",\n  \"label_zh\": \"米色链条挎包\",\n  \"point\": [\n    629,\n    775\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 1365470
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 1365470}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑，为指定条目生成简短详情。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n场景：\n夜晚的长隆欢乐世界游乐场内，亮着暖光的双层旋转木马前站着一位穿黑裙的女生。\n目标条目：\n{\n  \"id\": \"i2\",\n  \"name_en\": \"sling bag\",\n  \"name_zh\": \"挎包\",\n  \"label_en\": \"beige chain sling bag\",\n  \"label_zh\": \"米色链条挎包\",\n  \"point\": [\n    629,\n    775\n  ]\n}\n保持id和label_en不变，解释它在当前场景中的含义。写2个适合用户水平的自然英文例句和中文译文：一个贴近场景，一个便于迁移到日常生活。可补一句中文用法提示，没有则留空。不要添加新的图片事实或编造语言规则。\n只返回以下结构的合法JSON，不加注释、Markdown或解释：\n{\"id\":\"原条目id\",\"meaning_zh\":\"…\",\"examples\":[{\"en\":\"…\",\"zh\":\"…\"},{\"en\":\"…\",\"zh\":\"…\"}],\"usage_note_zh\":\"\"}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "0217924219888184de950134829ff25bce119eef8760b74551cee"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"id\": \"i2\", \"meaning_zh\": \"指图中女生随身携带的米色链条挎包，属于单肩斜挎的小型包袋，是她游玩时搭配穿搭、收纳随身小物的时尚配饰。\", \"examples\": [{\"en\": \"She slung a beige chain sling bag over her shoulder while posing in front of the lit-up carousel.\", \"zh\": \"她在亮着灯的旋转木马前摆姿势时，肩上挎着一只米色链条挎包。\"}, {\"en\": \"My beige chain sling is the perfect small bag for a day out — it holds my phone, lipstick and cardholder without being bulky.\", \"zh\": \"我的米色链条挎包是外出一日游的绝佳小包，能装下手机、口红和卡包，还不笨重。\"}], \"usage_note_zh\": \"sling bag 指单肩或斜挎的轻便小包，日常常用来指代穿搭用的小型挎包，适配休闲、出游等轻量出行场景。\"}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792421996,
+      "id": "0217924219888184de950134829ff25bce119eef8760b74551cee",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 213,
+        "prompt_tokens": 1780,
+        "total_tokens": 1993,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"id\": \"i2\", \"meaning_zh\": \"指图中女生随身携带的米色链条挎包，属于单肩斜挎的小型包袋，是她游玩时搭配穿搭、收纳随身小物的时尚配饰。\", \"examples\": [{\"en\": \"She slung a beige chain sling bag over her shoulder while posing in front of the lit-up carousel.\", \"zh\": \"她在亮着灯的旋转木马前摆姿势时，肩上挎着一只米色链条挎包。\"}, {\"en\": \"My beige chain sling is the perfect small bag for a day out — it holds my phone, lipstick and cardholder without being bulky.\", \"zh\": \"我的米色链条挎包是外出一日游的绝佳小包，能装下手机、口红和卡包，还不笨重。\"}], \"usage_note_zh\": \"sling bag 指单肩或斜挎的轻便小包，日常常用来指代穿搭用的小型挎包，适配休闲、出游等轻量出行场景。\"}",
+    "parsed_json": {
+      "id": "i2",
+      "meaning_zh": "指图中女生随身携带的米色链条挎包，属于单肩斜挎的小型包袋，是她游玩时搭配穿搭、收纳随身小物的时尚配饰。",
+      "examples": [
+        {
+          "en": "She slung a beige chain sling bag over her shoulder while posing in front of the lit-up carousel.",
+          "zh": "她在亮着灯的旋转木马前摆姿势时，肩上挎着一只米色链条挎包。"
+        },
+        {
+          "en": "My beige chain sling is the perfect small bag for a day out — it holds my phone, lipstick and cardholder without being bulky.",
+          "zh": "我的米色链条挎包是外出一日游的绝佳小包，能装下手机、口红和卡包，还不笨重。"
+        }
+      ],
+      "usage_note_zh": "sling bag 指单肩或斜挎的轻便小包，日常常用来指代穿搭用的小型挎包，适配休闲、出游等轻量出行场景。"
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 7368.421,
+    "wall_clock_seconds": 7.368,
+    "usage_raw": {
+      "completion_tokens": 213,
+      "prompt_tokens": 1780,
+      "total_tokens": 1993,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1780,
+      "output_tokens": 213,
+      "total_tokens": 1993,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-225713/seed-2.1-lite-20261019-225930",
+    "batch_id": "批量测试-20261019-225713",
+    "image_original_name": "14.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": 2,
+    "item_id": "i2",
+    "detail_includes_image": true
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0",
+  "success": true,
+  "phase": "overall",
+  "started_at_utc": "2026-10-19T14:58:48.907+00:00",
+  "finished_at_utc": "2026-10-19T14:58:57.488+00:00",
+  "request": {
+    "provider": "volcengine",
+    "model": "doubao-seed-2-1-lite-260915",
+    "model_label": "seed-2.1-lite",
+    "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+    "prompt": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}",
+    "image": {
+      "kind": "base64_data_url",
+      "mime_type": "image/jpeg",
+      "byte_size": 1343980
+    },
+    "body_without_image_or_secret": {
+      "model": "doubao-seed-2-1-lite-260915",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "<image omitted: {\"kind\": \"base64_data_url\", \"mime_type\": \"image/jpeg\", \"byte_size\": 1343980}>"
+              }
+            },
+            {
+              "type": "text",
+              "text": "你是英语学习内容编辑。结合用户资料，为照片生成简短、实用、有吸引力的双语内容。\n用户资料：\n用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。\n1. 选出最值得该用户学习的6个清晰物品；综合场景代表性、兴趣、英语水平和已掌握词汇，不重复，不足6个则少选，不虚构。\n2. 每项给出基础中英文名和简短双语学习表达；表达可等于基础名，优先自然常用、有画面感的搭配，避免生僻词、直译和堆砌修饰。不添加无法确认的属性。\n3. context_zh用一句中文客观说明场景。caption_en直接用自然英文写一句简短场景描述，再给caption_zh译文；不必用完6个词。\n4. point为该物品可见实体内部的点，用0～1000整数坐标：左上(0,0)，右下(1000,1000)，x向右、y向下；不要输出像素坐标。\n5. 只返回以下结构的合法JSON。\n{\"scene\":{\"context_zh\":\"…\",\"caption_en\":\"…\",\"caption_zh\":\"…\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"…\",\"name_zh\":\"…\",\"label_en\":\"…\",\"label_zh\":\"…\",\"point\":[500,500]}]}"
+            }
+          ]
+        }
+      ],
+      "stream": false,
+      "thinking": {
+        "type": "disabled"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "timeout_seconds": 180.0
+  },
+  "response": {
+    "http_status": 200,
+    "request_ids": {
+      "x-request-id": "021792421931657d8d1efa022ab0c380e7ecdb91b19d20a25a69f"
+    },
+    "raw_json": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "{\"scene\":{\"context_zh\":\"黄昏时分的主题乐园内，一名装扮成海盗的工作人员与一位身着风格化穿搭的女生站在一起，两人身后是一个大型的充气海盗气模。\",\"caption_en\":\"Taking a photo with a pirate-themed inflatable balloon in the theme park at dusk.\",\"caption_zh\":\"黄昏时分在主题乐园，和海盗风格的充气气球合影。\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"Inflatable Pirate Balloon\",\"name_zh\":\"充气海盗气球\",\"label_en\":\"A multi-headed inflatable pirate balloon\",\"label_zh\":\"多头部充气海盗气球\",\"point\":[420,260]},{\"id\":\"i2\",\"name_en\":\"Pirate Costume\",\"name_zh\":\"海盗服饰\",\"label_en\":\"An eye-patch pirate costume\",\"label_zh\":\"带眼罩的海盗服饰\",\"point\":[380,650]},{\"id\":\"i3\",\"name_en\":\"Striped Apron Skirt\",\"name_zh\":\"条纹围裙裙\",\"label_en\":\"A vertical striped apron skirt\",\"label_zh\":\"竖条纹围裙裙\",\"point\":[580,730]},{\"id\":\"i4\",\"name_en\":\"Dreadlocks\",\"name_zh\":\"麻花辫\",\"label_en\":\"Double braids\",\"label_zh\":\"双麻花辫\",\"point\":[560,605]},{\"id\":\"i5\",\"name_en\":\"Palm Tree\",\"name_zh\":\"棕榈树\",\"label_en\":\"A tropical palm tree\",\"label_zh\":\"热带棕榈树\",\"point\":[950,250]},{\"id\":\"i6\",\"name_en\":\"Theme Park Pavement\",\"name_zh\":\"乐园步道\",\"label_en\":\"Outdoor theme park walkway\",\"label_zh\":\"户外乐园步道\",\"point\":[780,800]}]}",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1792421940,
+      "id": "021792421931657d8d1efa022ab0c380e7ecdb91b19d20a25a69f",
+      "model": "doubao-seed-2-1-lite-260915",
+      "service_tier": "default",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 384,
+        "prompt_tokens": 1840,
+        "total_tokens": 2224,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "raw_text_if_non_json": null,
+    "content": "{\"scene\":{\"context_zh\":\"黄昏时分的主题乐园内，一名装扮成海盗的工作人员与一位身着风格化穿搭的女生站在一起，两人身后是一个大型的充气海盗气模。\",\"caption_en\":\"Taking a photo with a pirate-themed inflatable balloon in the theme park at dusk.\",\"caption_zh\":\"黄昏时分在主题乐园，和海盗风格的充气气球合影。\"},\"items\":[{\"id\":\"i1\",\"name_en\":\"Inflatable Pirate Balloon\",\"name_zh\":\"充气海盗气球\",\"label_en\":\"A multi-headed inflatable pirate balloon\",\"label_zh\":\"多头部充气海盗气球\",\"point\":[420,260]},{\"id\":\"i2\",\"name_en\":\"Pirate Costume\",\"name_zh\":\"海盗服饰\",\"label_en\":\"An eye-patch pirate costume\",\"label_zh\":\"带眼罩的海盗服饰\",\"point\":[380,650]},{\"id\":\"i3\",\"name_en\":\"Striped Apron Skirt\",\"name_zh\":\"条纹围裙裙\",\"label_en\":\"A vertical striped apron skirt\",\"label_zh\":\"竖条纹围裙裙\",\"point\":[580,730]},{\"id\":\"i4\",\"name_en\":\"Dreadlocks\",\"name_zh\":\"麻花辫\",\"label_en\":\"Double braids\",\"label_zh\":\"双麻花辫\",\"point\":[560,605]},{\"id\":\"i5\",\"name_en\":\"Palm Tree\",\"name_zh\":\"棕榈树\",\"label_en\":\"A tropical palm tree\",\"label_zh\":\"热带棕榈树\",\"point\":[950,250]},{\"id\":\"i6\",\"name_en\":\"Theme Park Pavement\",\"name_zh\":\"乐园步道\",\"label_en\":\"Outdoor theme park walkway\",\"label_zh\":\"户外乐园步道\",\"point\":[780,800]}]}",
+    "parsed_json": {
+      "scene": {
+        "context_zh": "黄昏时分的主题乐园内，一名装扮成海盗的工作人员与一位身着风格化穿搭的女生站在一起，两人身后是一个大型的充气海盗气模。",
+        "caption_en": "Taking a photo with a pirate-themed inflatable balloon in the theme park at dusk.",
+        "caption_zh": "黄昏时分在主题乐园，和海盗风格的充气气球合影。"
+      },
+      "items": [
+        {
+          "id": "i1",
+          "name_en": "Inflatable Pirate Balloon",
+          "name_zh": "充气海盗气球",
+          "label_en": "A multi-headed inflatable pirate balloon",
+          "label_zh": "多头部充气海盗气球",
+          "point": [
+            420,
+            260
+          ]
+        },
+        {
+          "id": "i2",
+          "name_en": "Pirate Costume",
+          "name_zh": "海盗服饰",
+          "label_en": "An eye-patch pirate costume",
+          "label_zh": "带眼罩的海盗服饰",
+          "point": [
+            380,
+            650
+          ]
+        },
+        {
+          "id": "i3",
+          "name_en": "Striped Apron Skirt",
+          "name_zh": "条纹围裙裙",
+          "label_en": "A vertical striped apron skirt",
+          "label_zh": "竖条纹围裙裙",
+          "point": [
+            580,
+            730
+          ]
+        },
+        {
+          "id": "i4",
+          "name_en": "Dreadlocks",
+          "name_zh": "麻花辫",
+          "label_en": "Double braids",
+          "label_zh": "双麻花辫",
+          "point": [
+            560,
+            605
+          ]
+        },
+        {
+          "id": "i5",
+          "name_en": "Palm Tree",
+          "name_zh": "棕榈树",
+          "label_en": "A tropical palm tree",
+          "label_zh": "热带棕榈树",
+          "point": [
+            950,
+            250
+          ]
+        },
+        {
+          "id": "i6",
+          "name_en": "Theme Park Pavement",
+          "name_zh": "乐园步道",
+          "label_en": "Outdoor theme park walkway",
+          "label_zh": "户外乐园步道",
+          "point": [
+            780,
+            800
+          ]
+        }
+      ]
+    },
+    "parse_error": null,
+    "validation_errors": [],
+    "error": null
+  },
+  "metrics": {
+    "wall_clock_ms": 8581.606,
+    "wall_clock_seconds": 8.582,
+    "usage_raw": {
+      "completion_tokens": 384,
+      "prompt_tokens": 1840,
+      "total_tokens": 2224,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_normalized": {
+      "input_tokens": 1840,
+      "output_tokens": 384,
+      "total_tokens": 2224,
+      "cached_input_tokens": 0,
+      "reasoning_tokens": 0
+    }
+  },
+  "test_context": {
+    "test_run_id": "批量测试-20261019-225713/seed-2.1-lite-20261019-225848",
+    "batch_id": "批量测试-20261019-225713",
+    "image_original_name": "13.jpg",
+    "user_profile": "用户是一名喜欢旅行、时尚穿搭和主题乐园文化的女留学生，平时乐于拍照记录生活，也喜欢参与当地的节日活动。她的英语很流利，因为在英国多年生活后沉淀下来所以自然而得体。即使偶尔仍能听出淡淡的非母语痕迹，也不会影响她表达中的从容与分寸感。",
+    "item_index": null,
+    "item_id": null,
+    "detail_includes_image": null
+  }
+}
