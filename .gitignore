@@ -7,3 +7,6 @@ __pycache__/
 .env.*
 photo-english-model-tester/.deps/
 **/~$*
+
+# 独立维护的 Git 仓库
+/xiaoyuzhong-test/
