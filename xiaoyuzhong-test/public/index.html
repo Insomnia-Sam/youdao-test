@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小语种识别控制台</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <div>
+      <h1>小语种识别控制台</h1>
+      <p>豆包语音识别 · 语种检测 / 自动语种识别</p>
+    </div>
+  </div>
+  <div class="topbar-meta">
+    <span id="health" class="pill pill-idle">检查服务中</span>
+    <span class="hint">仅监听本机 127.0.0.1，凭据不落库</span>
+  </div>
+</header>
+
+<main class="layout">
+  <div class="col">
+    <section class="card">
+      <div class="card-head">
+        <h2>1 · 音频</h2>
+        <span class="tag" id="clipTag">未选择</span>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" data-tab="record" role="tab">录完再识别</button>
+        <button class="tab" data-tab="upload" role="tab">上传文件</button>
+        <button class="tab" data-tab="url" role="tab">公网链接</button>
+      </div>
+
+      <div class="panel is-active" data-panel="record">
+        <div class="rec-row">
+          <button id="recBtn" class="btn btn-primary">开始录音</button>
+          <span class="rec-timer" id="recTimer">00:00</span>
+          <span class="rec-level" id="micLevel">输入电平 —</span>
+        </div>
+        <label class="field">
+          <span>麦克风设备（首次录音授权后才会出现设备名）</span>
+          <select id="micDevice"><option value="">系统默认</option></select>
+        </label>
+        <canvas id="wave" class="wave" height="56" aria-label="录音波形"></canvas>
+        <div class="mic-test">
+          <button id="micTest" class="btn" type="button">麦克风自检（2 秒）</button>
+          <span class="mic-test-out" id="micTestOut">还没自检</span>
+        </div>
+        <p class="fineprint">录音停止后自动转成 16kHz / 16bit / 单声道，最长 180 秒。首次使用需允许麦克风权限。</p>
+      </div>
+
+      <div class="panel" data-panel="upload">
+        <label class="dropzone" id="drop">
+          <input type="file" id="file" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.flac,.webm">
+          <span class="dz-title">选择音频文件或拖进来</span>
+          <span class="dz-sub">浏览器能解码的格式都可以，会自动转成 16kHz 单声道 PCM</span>
+        </label>
+      </div>
+
+      <div class="panel" data-panel="url">
+        <label class="field">
+          <span>音频直链（公网可访问）</span>
+          <input type="text" id="audioUrl" placeholder="https://.../sample.m4a">
+        </label>
+        <label class="field">
+          <span>格式</span>
+          <select id="urlFormat">
+            <option value="wav">wav</option>
+            <option value="mp3">mp3</option>
+            <option value="m4a">m4a</option>
+            <option value="aac">aac</option>
+            <option value="ogg">ogg</option>
+            <option value="amr">amr</option>
+            <option value="spx">spx</option>
+          </select>
+        </label>
+        <p class="fineprint">这条路径走录音文件识别极速版，同步返回结果，不需要现场转码。</p>
+      </div>
+
+      <div class="clip" id="clip">
+        <audio id="player" controls hidden></audio>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>2 · 鉴权</h2></div>
+      <label class="field">
+        <span>API Key（新版控制台）</span>
+        <input type="password" id="apiKey" placeholder="可选，填了就用新版鉴权" autocomplete="off">
+      </label>
+      <div class="field-row">
+        <label class="field">
+          <span>App ID / App Key（旧版）</span>
+          <input type="text" id="appKey" placeholder="与 Access Token 配套" autocomplete="off">
+        </label>
+        <label class="field">
+          <span>Access Token</span>
+          <input type="password" id="accessKey" placeholder="旧版控制台的 token" autocomplete="off">
+        </label>
+      </div>
+      <label class="field">
+        <span>模型 / 资源 ID</span>
+        <select id="resourceId"></select>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="remember">
+        <span>在这台机器的浏览器里记住凭据（存 localStorage）</span>
+      </label>
+    </section>
+  </div>
+
+  <div class="col">
+    <section class="card">
+      <div class="card-head">
+        <h2>3 · 识别参数</h2>
+        <span class="tag" id="modeTag">一句话识别</span>
+      </div>
+
+      <div class="switch-grid">
+        <label class="switch">
+          <input type="checkbox" id="enable_auto_lang">
+          <span class="switch-body">
+            <strong>enable_auto_lang</strong>
+            <em>自动判语种并输出该语种文本（25 语种）</em>
+          </span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="enable_lid" checked>
+          <span class="switch-body">
+            <strong>enable_lid</strong>
+            <em>只在响应的 additions 里返回语种标签</em>
+          </span>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>language（指定语种，留空则由模型决定）</span>
+        <select id="language">
+          <option value="">不指定</option>
+          <option value="zh-CN">中文普通话 zh-CN</option>
+          <option value="yue-CN">粤语 yue-CN</option>
+          <option value="en-US">英语 en-US</option>
+          <option value="ja-JP">日语 ja-JP</option>
+          <option value="ko-KR">韩语 ko-KR</option>
+          <option value="th-TH">泰语 th-TH</option>
+          <option value="vi-VN">越南语 vi-VN</option>
+          <option value="id-ID">印尼语 id-ID</option>
+          <option value="ms-MY">马来语 ms-MY</option>
+          <option value="fil-PH">菲律宾语 fil-PH</option>
+          <option value="es-MX">西班牙语 es-MX</option>
+          <option value="pt-BR">葡萄牙语 pt-BR</option>
+          <option value="de-DE">德语 de-DE</option>
+          <option value="fr-FR">法语 fr-FR</option>
+          <option value="it-IT">意大利语 it-IT</option>
+          <option value="ru-RU">俄语 ru-RU</option>
+          <option value="ar-SA">阿拉伯语 ar-SA</option>
+          <option value="tr-TR">土耳其语 tr-TR</option>
+          <option value="nl-NL">荷兰语 nl-NL</option>
+          <option value="pl-PL">波兰语 pl-PL</option>
+          <option value="uk-UA">乌克兰语 uk-UA</option>
+          <option value="bn-BD">孟加拉语 bn-BD</option>
+          <option value="el-GR">希腊语 el-GR</option>
+          <option value="ro-RO">罗马尼亚语 ro-RO</option>
+          <option value="ne-NP">尼泊尔语 ne-NP</option>
+        </select>
+      </label>
+
+      <div class="switch-grid compact">
+        <label class="check"><input type="checkbox" id="show_utterances" checked><span>show_utterances 分句信息</span></label>
+        <label class="check"><input type="checkbox" id="enable_itn" checked><span>enable_itn 数字规整</span></label>
+        <label class="check"><input type="checkbox" id="enable_punc" checked><span>enable_punc 标点</span></label>
+        <label class="check"><input type="checkbox" id="enable_ddc"><span>enable_ddc 语义顺滑</span></label>
+      </div>
+
+      <details class="advanced">
+        <summary>高级参数</summary>
+        <div class="switch-grid compact">
+          <label class="check ws-only"><input type="checkbox" id="show_speech_rate"><span>show_speech_rate 语速</span></label>
+          <label class="check ws-only"><input type="checkbox" id="show_volume"><span>show_volume 音量</span></label>
+          <label class="check ws-only"><input type="checkbox" id="enable_speaker_info"><span>enable_speaker_info 说话人分离</span></label>
+          <label class="check ws-only"><input type="checkbox" id="enable_emotion_detection"><span>enable_emotion_detection 情绪</span></label>
+          <label class="check ws-only"><input type="checkbox" id="enable_gender_detection"><span>enable_gender_detection 性别</span></label>
+        </div>
+        <label class="field narrow ws-only">
+          <span>end_window_size（静音判停 ms，300–5000）</span>
+          <input type="number" id="end_window_size" min="300" max="5000" step="100" placeholder="例如 800">
+        </label>
+      </details>
+
+      <details class="advanced">
+        <summary>直接编辑请求参数 JSON</summary>
+        <label class="check"><input type="checkbox" id="jsonOverride"><span>以以下 JSON 为准（优先于上方表单）</span></label>
+        <button id="fillJson" class="btn" type="button">从表单生成 JSON</button>
+        <label class="field"><span>只编辑 audio 与 request；上传音频的实际格式不能伪造</span><textarea id="paramJson" rows="12" spellcheck="false" class="mono" aria-label="请求参数 JSON"></textarea></label>
+        <p class="fineprint">未知参数或不适用的参数会明确报错，不会静默忽略。enable_auto_lang 不能与 corpus 热词/上下文同时使用。</p>
+      </details>
+      <p class="fineprint">只有点击“开始识别”才会把音频和鉴权发送给豆包语音服务，可能产生调用费用。两个语种参数可分别或同时开启，以真实响应为准。</p>
+      <div class="actions">
+        <button id="run" class="btn btn-primary">开始识别</button>
+        <button id="stop" class="btn" disabled>取消</button>
+        <button id="clear" class="btn btn-quiet">清空结果</button>
+      </div>
+      <p class="fineprint" id="runHint">本地音频走 WebSocket 一句话识别；公网链接走 HTTP 极速版。</p>
+    </section>
+
+    <section class="card result-card">
+      <div class="card-head">
+        <h2>4 · 响应</h2>
+        <span class="tag" id="statusTag">待运行</span>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><span>耗时</span><strong id="statElapsed">—</strong></div>
+        <div class="stat"><span>音频时长</span><strong id="statDuration">—</strong></div>
+        <div class="stat"><span>logid</span><strong id="statLogid" class="mono">—</strong></div>
+      </div>
+
+      <div class="lang-strip" id="langStrip"></div>
+      <div class="text-out" id="textOut"><span class="placeholder">识别文本会显示在这里</span></div>
+      <div class="timeline" id="timeline"></div>
+      <div class="utterances" id="utterances"></div>
+
+      <details class="raw">
+        <summary>原始响应 JSON</summary>
+        <pre id="rawJson" class="mono">—</pre>
+      </details>
+      <details class="raw">
+        <summary>请求体（凭据已隐藏）</summary>
+        <pre id="reqJson" class="mono">—</pre>
+      </details>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  本地调试工具，请求经本机 Node 服务代理到 openspeech.bytedance.com。语种标签与支持范围以接口文档为准。
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

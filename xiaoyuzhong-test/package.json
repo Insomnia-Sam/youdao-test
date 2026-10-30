@@ -1,0 +1,13 @@
+{
+  "name": "xiaoyuzhong-test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "本地豆包 ASR / LID 调试控制台",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js",
+    "check": "node --check server.js && node --check lib/asr.js && node --check lib/ws.js && node --check public/app.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": { "ws": "8.18.3" }
+}
